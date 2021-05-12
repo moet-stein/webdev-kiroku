@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Modal from './Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Avatar from '@material-ui/core/Avatar';
-import { cyan, lightBlue, red } from '@material-ui/core/colors';
+import { red } from '@material-ui/core/colors';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
@@ -23,13 +23,10 @@ const useStyles = makeStyles((theme) => ({
   cover: {
     width: 151,
     border: 'none',
-  },
-  playButton: {
-    color: cyan[100],
     display: 'flex',
-    justifyContent: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-
   avatar: {
     backgroundColor: red[500],
   },
@@ -42,18 +39,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Video = () => {
+const Video = ({ video }) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card key={video.id.videoId} className={classes.root}>
       <div className={classes.details}>
         <CardContent className={classes.content}>
           <Typography component="h5" variant="h5">
-            Live From Space
+            {video.snippet.title}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            Mac Miller
+            {video.snippet.publishedAt}
           </Typography>
         </CardContent>
         <div className={classes.author}>
@@ -61,19 +58,16 @@ const Video = () => {
             R
           </Avatar>
           <Typography variant="subtitle1" color="textSecondary">
-            WebDev Simplified
+            {video.snippet.channelTitle}
           </Typography>
         </div>
       </div>
 
       <CardMedia
         className={classes.cover}
-        image="https://i.ytimg.com/vi/QFaFIcGhPoM/hqdefault.jpg"
+        image={video.snippet.thumbnails.high.url}
       >
-        {/* <IconButton className={classes.playButton} onClick={handleClickOpen}>
-          <PlayCircleOutlineIcon fontSize="large" />
-        </IconButton> */}
-        <Modal />
+        <Modal video={video} />
       </CardMedia>
     </Card>
   );
