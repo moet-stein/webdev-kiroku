@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import ShowVideo from '../components/ShowVideo';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -56,10 +57,11 @@ const Channel = (props) => {
   const classes = useStyles();
   const [channel, setChannel] = useState([]);
   const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
-  //   const [origDescription, setOrigDescription] = useState('');
-  //   const [description, setDescription] = useState('');
-  //youtube.googleapis.com/youtube/v3/channels?part=snippet%2Cstatistics%2CbrandingSettings%2CtopicDetails&id=UC29ju8bIPH5as8OGnQzwJyA&key=[YOUR_API_KEY]
-  console.log(channel.length > 0);
+  const [show, setShow] = useState(false);
+
+  const showVideos = () => {
+    show ? setShow(false) : setShow(true);
+  };
 
   useEffect(() => {
     const fetchChannel = async () => {
@@ -67,6 +69,7 @@ const Channel = (props) => {
         const res = await axios.get(
           `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2Cstatistics%2CbrandingSettings%2CtopicDetails&id=${id}&key=${apiKey}`
         );
+        console.log(res.data.items);
         setChannel(res.data.items);
       } catch (e) {
         console.log('error', e);
@@ -74,8 +77,6 @@ const Channel = (props) => {
     };
     fetchChannel();
   }, []);
-  // setOrigDescription(channel.snippet.description);
-  // setDescription(origDescription.replaceAll('[^\\p{Alpha}\\p{Digit}]+', ''));
 
   return (
     <div>
@@ -105,27 +106,25 @@ const Channel = (props) => {
                     title="Contemplative Reptile"
                   />
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    {/* <Typography gutterBottom variant="h5" component="h2">
                       Lizard
-                    </Typography>
+                    </Typography> */}
                     <Typography
                       variant="body2"
                       color="textSecondary"
                       component="p"
                     >
-                      {/* {description} */}description
+                      {c.snippet.description}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
                 <CardActions>
-                  <Button size="small" color="primary">
-                    Share
-                  </Button>
-                  <Button size="small" color="primary">
-                    Learn More
+                  <Button size="small" color="primary" onClick={showVideos}>
+                    Show Videos
                   </Button>
                 </CardActions>
               </Card>
+              {show && <ShowVideo channelId={c.id} />}
             </div>
           );
         })}

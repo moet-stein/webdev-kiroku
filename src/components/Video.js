@@ -41,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Video = ({ video }) => {
-  console.log(video);
   const classes = useStyles();
   const channelTitle =
     video.snippet.channelTitle.length > 20
