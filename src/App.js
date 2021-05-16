@@ -1,8 +1,9 @@
 import './App.css';
 import Search from './views/Search';
 import Login from './views/Login';
+import Channel from './views/Channel';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 const theme = createMuiTheme({
   typography: {
@@ -26,6 +27,7 @@ function App() {
             <Route exact path="/search">
               <Search />
             </Route>
+            <Route exact path="/channel/:id" children={<Channel />}></Route>
           </Switch>
         </div>
       </Router>
