@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from './Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -8,8 +8,14 @@ import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
-import { Button } from '@material-ui/core';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Avatar, Button } from '@material-ui/core';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useLocation,
+} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -40,7 +46,13 @@ const useStyles = makeStyles((theme) => ({
   //   },
 }));
 
-const Video = ({ video }) => {
+const Video = ({ video, channelIcon }) => {
+  const location = useLocation();
+  const [searchPage, setSearchPage] = useState(true);
+  useEffect(() => {
+    setSearchPage(location.pathname == '/search' ? true : false);
+  }, []);
+
   const classes = useStyles();
   const channelTitle =
     video.snippet.channelTitle.length > 20
@@ -50,25 +62,42 @@ const Video = ({ video }) => {
   return (
     <div className={classes.flex}>
       <Card className={classes.root}>
-        <CardHeader
-          avatar={
-            // <Avatar aria-label="recipe" className={classes.avatar}>
-            //   R
-            // </Avatar>
-            <Link to={`channel/${video.snippet.channelId}`}>
-              <Button key={video.etag} variant="outlined" color="primary">
-                {channelTitle}
-              </Button>
-            </Link>
-          }
-          action={
-            <IconButton aria-label="settings">
-              <NoteAddIcon />
-            </IconButton>
-          }
-          //   title={video.snippet.channelTitle}
-          subheader={video.snippet.publisedAt}
-        />
+        {searchPage && (
+          <CardHeader
+            avatar={
+              <Link to={`channel/${video.snippet.channelId}`}>
+                <Button key={video.etag} variant="outlined" color="primary">
+                  {channelTitle}
+                </Button>
+              </Link>
+            }
+            action={
+              <Link to={`newnote/${video.id.videoId}`}>
+                <IconButton aria-label="settings">
+                  <NoteAddIcon />
+                </IconButton>
+              </Link>
+            }
+          />
+        )}
+        {!searchPage && (
+          <CardHeader
+            avatar={
+              <Avatar
+                alt="Remy Sharp"
+                src={channelIcon}
+                title={video.snippet.title}
+              />
+            }
+            action={
+              <Link to={`newnote/${video.id.videoId}`}>
+                <IconButton aria-label="settings">
+                  <NoteAddIcon />
+                </IconButton>
+              </Link>
+            }
+          />
+        )}
         <CardMedia
           className={classes.media}
           image={video.snippet.thumbnails.high.url}

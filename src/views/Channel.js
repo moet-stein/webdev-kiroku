@@ -27,11 +27,11 @@ const useStyles = makeStyles((theme) => ({
   },
   firstRoot: {
     display: 'flex',
-    width: 345,
+    width: 400,
     marginTop: theme.spacing(3),
   },
   root: {
-    width: 345,
+    width: 400,
   },
   media: {
     height: 140,
@@ -124,7 +124,12 @@ const Channel = (props) => {
                   </Button>
                 </CardActions>
               </Card>
-              {show && <ShowVideo channelId={c.id} />}
+              {show && (
+                <ShowVideo
+                  channelId={c.id}
+                  channelIcon={c.snippet.thumbnails.high.url}
+                />
+              )}
             </div>
           );
         })}
