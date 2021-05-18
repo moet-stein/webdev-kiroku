@@ -4,6 +4,7 @@ import Video from '../components/Video';
 import axios from 'axios';
 import { Typography } from '@material-ui/core';
 import { FetchedVideosContext } from '../context/fetchedVideosContext';
+import { SearchInputContext } from '../context/searchInputContext';
 
 const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
 
@@ -11,6 +12,9 @@ const Search = () => {
   const { fetchedVideos, setFetchedVideos, loading, setLoading } = useContext(
     FetchedVideosContext
   );
+
+  const { searchInput, setSearchInput } = useContext(SearchInputContext);
+  console.log(searchInput);
 
   const [videos, setVideos] = useState([]);
 
