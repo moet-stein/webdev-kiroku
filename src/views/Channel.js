@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import { Avatar } from '@material-ui/core';
 import axios from 'axios';
 import {
@@ -40,6 +41,17 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
   },
+  displayFlex: {
+    display: 'flex',
+  },
+  marginCenter: {
+    margin: theme.spacing(1),
+    display: 'flex',
+    alignItems: 'center',
+  },
+  marginEverything: {
+    margin: theme.spacing(1),
+  },
   content: {
     flex: '1 0 auto',
   },
@@ -57,6 +69,25 @@ const Channel = (props) => {
   const [channel, setChannel] = useState([]);
   const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
   const [show, setShow] = useState(false);
+
+  const numberConverter = (num) => {
+    if (num > 999 && num < 1000000) {
+      return (num / 1000).toFixed(1) + 'K'; // convert to K for number from > 1000 < 1 million
+    } else if (num > 1000000) {
+      return (num / 1000000).toFixed(1) + 'M'; // convert to M for number from > 1 million
+    } else if (num < 900) {
+      return num; // if value < 1000, nothing to do
+    }
+  };
+
+  const htmlEntities = (str) => {
+    return String(str)
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, `'`);
+  };
 
   const showVideos = () => {
     show ? setShow(false) : setShow(true);
@@ -104,22 +135,44 @@ const Channel = (props) => {
                     image={c.brandingSettings.image.bannerExternalUrl}
                     title="Contemplative Reptile"
                   />
-                  <CardContent>
+                  <CardContent className={classes.marginEverything}>
                     {/* <Typography gutterBottom variant="h5" component="h2">
                       Lizard
                     </Typography> */}
-                    <Typography
-                      variant="body2"
+                    <div className={classes.displayFlex}>
+                      <Paper className={classes.marginCenter}>
+                        <Typography className={classes.marginEverything}>
+                          Subscribers: <br />
+                          {numberConverter(c.statistics.subscriberCount)}
+                        </Typography>
+                      </Paper>
+                      <Paper className={classes.marginCenter}>
+                        <Typography className={classes.marginEverything}>
+                          Total Videos: <br />
+                          {numberConverter(c.statistics.videoCount)}
+                        </Typography>
+                      </Paper>
+                      <Paper className={classes.marginCenter}>
+                        <Typography className={classes.marginEverything}>
+                          Total Views: <br />
+                          {numberConverter(c.statistics.viewCount)}
+                        </Typography>
+                      </Paper>
+                    </div>
+                    <Paper
                       color="textSecondary"
-                      component="p"
+                      className={classes.widthCard}
+                      elevation={0}
                     >
-                      {c.snippet.description}
-                    </Typography>
+                      <Typography align="left">
+                        {htmlEntities(c.snippet.description)}
+                      </Typography>
+                    </Paper>
                   </CardContent>
                 </CardActionArea>
                 <CardActions>
                   <Button size="small" color="primary" onClick={showVideos}>
-                    Show Videos
+                    {show ? 'Hide Videos' : 'Show Videos'}
                   </Button>
                 </CardActions>
               </Card>

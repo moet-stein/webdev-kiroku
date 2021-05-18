@@ -71,6 +71,18 @@ const Video = ({ video, channelIcon }) => {
       ? video.snippet.channelTitle.slice(0, 20) + '...'
       : video.snippet.channelTitle;
 
+  const publishTime = video.snippet.publishTime.split('T')[0];
+
+  const htmlEntities = (str) => {
+    return String(str)
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, `'`);
+  };
+  const videoTitle = htmlEntities(video.snippet.title);
+
   return (
     <div className={classes.flex}>
       <Card className={classes.root}>
@@ -121,8 +133,9 @@ const Video = ({ video, channelIcon }) => {
 
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            {video.snippet.title}
+            {publishTime}
           </Typography>
+          <Typography> {videoTitle}</Typography>
         </CardContent>
       </Card>
     </div>

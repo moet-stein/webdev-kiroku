@@ -23,7 +23,6 @@ const Search = () => {
       'codingchallenge',
       'node js',
       'mongo db',
-      'firebase',
       'html css',
       'typescript',
       'gatsby js',
@@ -36,6 +35,7 @@ const Search = () => {
         );
         setVideos(res.data.items);
         setFetchedVideos(res.data.items);
+        console.log(res.data.items);
         setLoading(false);
       } catch (e) {
         console.log(e);
