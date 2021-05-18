@@ -10,7 +10,7 @@ export const VideoForNewNoteContext = createContext(initVideoForNewNoteContext);
 // 4. make provider => value / children
 export const VideoForNewNoteContextProvider = ({ children }) => {
   const [videoForNewNote, setVideoForNewNote] = useState(
-    initVideoForNewNoteContext.video
+    initVideoForNewNoteContext.videoForNewNote
   );
 
   const clearVideoForNewNote = () => {

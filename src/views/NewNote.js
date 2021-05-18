@@ -14,6 +14,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { VideoForNewNoteContext } from '../context/videoForNewNoteContext';
+import { FetchedVideosContext } from '../context/fetchedVideosContext';
 
 const useStyles = makeStyles((theme) => ({
   field: {
@@ -63,6 +64,9 @@ const NewNote = () => {
   const [categoryInput, setCategoryInput] = useState(0);
   const [category, setCategory] = useState('');
   const [categoriesArr, setCategoriesArr] = useState([]);
+
+  const { fetchedVideos } = useContext(FetchedVideosContext);
+  console.log('fetchedVideos', fetchedVideos);
 
   const { videoForNewNote } = useContext(VideoForNewNoteContext);
   console.log(videoForNewNote);

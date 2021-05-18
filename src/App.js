@@ -7,6 +7,7 @@ import NewNote from './views/NewNote';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { VideoForNewNoteContextProvider } from './context/videoForNewNoteContext';
+import { FetchedVideosContextProvider } from './context/fetchedVideosContext';
 
 const theme = createMuiTheme({
   typography: {
@@ -31,13 +32,15 @@ function App() {
             <Route exact path="/notes">
               <Notes />
             </Route>
-            <VideoForNewNoteContextProvider>
-              <Route exact path="/search">
-                <Search />
-              </Route>
-              <Route exact path="/channel/:id" children={<Channel />}></Route>
-              <Route exact path="/newnote/:id" children={<NewNote />}></Route>
-            </VideoForNewNoteContextProvider>
+            <FetchedVideosContextProvider>
+              <VideoForNewNoteContextProvider>
+                <Route exact path="/search">
+                  <Search />
+                </Route>
+                <Route exact path="/channel/:id" children={<Channel />}></Route>
+                <Route exact path="/newnote/:id" children={<NewNote />}></Route>
+              </VideoForNewNoteContextProvider>
+            </FetchedVideosContextProvider>
           </Switch>
         </div>
       </Router>

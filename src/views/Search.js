@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import SearchBar from '../components/SearchBar';
 import Video from '../components/Video';
 import axios from 'axios';
 import { Typography } from '@material-ui/core';
+import { FetchedVideosContext } from '../context/fetchedVideosContext';
 
 const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
 
 const Search = () => {
+  const { fetchedVideos, setFetchedVideos, loading, setLoading } = useContext(
+    FetchedVideosContext
+  );
+
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
@@ -30,6 +35,8 @@ const Search = () => {
           `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchQuery}&order=viewCount&relevanceLanguage=en&key=${apiKey}`
         );
         setVideos(res.data.items);
+        setFetchedVideos(res.data.items);
+        setLoading(false);
       } catch (e) {
         console.log(e);
       }
@@ -41,9 +48,13 @@ const Search = () => {
     <div>
       <Typography>WebDev Kiroku</Typography>
       <SearchBar />
-      {videos.map((video) => {
-        return <Video key={video.etag} video={video} />;
-      })}
+      {!loading ? (
+        videos.map((video) => {
+          return <Video key={video.etag} video={video} />;
+        })
+      ) : (
+        <Typography>Loading</Typography>
+      )}
     </div>
   );
 };
