@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect, useContext } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -13,6 +13,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import { VideoForNewNoteContext } from '../context/videoForNewNoteContext';
 
 const useStyles = makeStyles((theme) => ({
   field: {
@@ -54,6 +55,7 @@ const NewNote = () => {
   const imageUrl = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
   const classes = useStyles();
   const history = useHistory();
+  const [youtubeTitle, setYoutubeTitle] = useState('');
   const [title, setTitle] = useState('');
   const [details, setDetails] = useState('');
   const [titleError, setTitleError] = useState(false);
@@ -61,6 +63,9 @@ const NewNote = () => {
   const [categoryInput, setCategoryInput] = useState(0);
   const [category, setCategory] = useState('');
   const [categoriesArr, setCategoriesArr] = useState([]);
+
+  const { videoForNewNote } = useContext(VideoForNewNoteContext);
+  console.log(videoForNewNote);
 
   const addCategoryInput = () => {
     setCategoryInput(categoryInput + 1);
@@ -101,9 +106,13 @@ const NewNote = () => {
       </Typography>
 
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-        <img className={classes.image} src={imageUrl} />
+        <img
+          className={classes.image}
+          src={videoForNewNote.snippet.thumbnails.high.url}
+        />
+        <Typography> Video Title: {videoForNewNote.snippet.title} </Typography>
         <Typography>
-          Source: https://www.youtube.com/watch?v=7CqJlxBYj-M"
+          Source: {`https://www.youtube.com/watch?v=${id}`}
         </Typography>
         <TextField
           onChange={(e) => setTitle(e.target.value)}

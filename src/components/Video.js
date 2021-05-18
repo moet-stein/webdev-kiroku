@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Modal from './Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -15,7 +15,9 @@ import {
   Route,
   Link,
   useLocation,
+  browserHistory,
 } from 'react-router-dom';
+import { VideoForNewNoteContext } from '../context/videoForNewNoteContext';
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -47,6 +49,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Video = ({ video, channelIcon }) => {
+  const {
+    videoForNewNote,
+    setVideoForNewNote,
+    clearVideoForNewNote,
+  } = useContext(VideoForNewNoteContext);
+
+  const storeVideoContext = () => {
+    setVideoForNewNote(video);
+  };
+
   const location = useLocation();
   const [searchPage, setSearchPage] = useState(true);
   useEffect(() => {
@@ -73,7 +85,7 @@ const Video = ({ video, channelIcon }) => {
             }
             action={
               <Link to={`newnote/${video.id.videoId}`}>
-                <IconButton aria-label="settings">
+                <IconButton aria-label="settings" onClick={storeVideoContext}>
                   <NoteAddIcon />
                 </IconButton>
               </Link>
@@ -90,8 +102,8 @@ const Video = ({ video, channelIcon }) => {
               />
             }
             action={
-              <Link to={`newnote/${video.id.videoId}`}>
-                <IconButton aria-label="settings">
+              <Link to={`/newnote/${video.id.videoId}`}>
+                <IconButton aria-label="settings" onClick={storeVideoContext}>
                   <NoteAddIcon />
                 </IconButton>
               </Link>

@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Channel = (props) => {
   const { id } = useParams();
-  console.log(id);
   const classes = useStyles();
   const [channel, setChannel] = useState([]);
   const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;

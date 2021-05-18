@@ -1,10 +1,12 @@
 import './App.css';
 import Search from './views/Search';
 import Login from './views/Login';
+import Notes from './views/Notes';
 import Channel from './views/Channel';
 import NewNote from './views/NewNote';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { VideoForNewNoteContextProvider } from './context/videoForNewNoteContext';
 
 const theme = createMuiTheme({
   typography: {
@@ -25,11 +27,17 @@ function App() {
             <Route exact path="/login">
               <Login />
             </Route>
-            <Route exact path="/search">
-              <Search />
+
+            <Route exact path="/notes">
+              <Notes />
             </Route>
-            <Route exact path="/channel/:id" children={<Channel />}></Route>
-            <Route exact path="/newnote/:id" children={<NewNote />}></Route>
+            <VideoForNewNoteContextProvider>
+              <Route exact path="/search">
+                <Search />
+              </Route>
+              <Route exact path="/channel/:id" children={<Channel />}></Route>
+              <Route exact path="/newnote/:id" children={<NewNote />}></Route>
+            </VideoForNewNoteContextProvider>
           </Switch>
         </div>
       </Router>
