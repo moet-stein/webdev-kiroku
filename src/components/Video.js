@@ -17,7 +17,7 @@ import {
   useLocation,
   browserHistory,
 } from 'react-router-dom';
-import { VideoForNewNoteContext } from '../context/videoForNewNoteContext';
+// import { VideoForNewNoteContext } from '../context/videoForNewNoteContext';
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -49,14 +49,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Video = ({ video, channelIcon }) => {
-  const {
-    videoForNewNote,
-    setVideoForNewNote,
-    clearVideoForNewNote,
-  } = useContext(VideoForNewNoteContext);
+  // const {
+  //   videoForNewNote,
+  //   setVideoForNewNote,
+  //   clearVideoForNewNote,
+  // } = useContext(VideoForNewNoteContext);
 
   const storeVideoContext = () => {
-    setVideoForNewNote(video);
+    // setVideoForNewNote(video);
     localStorage.setItem('newNoteVideo', JSON.stringify(video));
   };
 
