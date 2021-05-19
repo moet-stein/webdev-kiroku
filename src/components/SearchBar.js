@@ -65,9 +65,9 @@ const SearchBar = () => {
   const [query, setQuery] = useState('');
 
   useEffect(() => {
-    const timeOutId = setTimeout(() => setSearchInput(query), 1500);
+    const timeOutId = setTimeout(() => setSearchInput(query), 1000);
     return () => clearTimeout(timeOutId);
-  }, [query]);
+  }, [searchInput]);
 
   return (
     <div className={classes.grow}>

@@ -13,8 +13,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import { VideoForNewNoteContext } from '../context/videoForNewNoteContext';
-import { FetchedVideosContext } from '../context/fetchedVideosContext';
+import useLocalStorage from '../components/useLocalStorage';
 
 const useStyles = makeStyles((theme) => ({
   field: {
@@ -56,7 +55,6 @@ const NewNote = () => {
   const imageUrl = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
   const classes = useStyles();
   const history = useHistory();
-  const [youtubeTitle, setYoutubeTitle] = useState('');
   const [title, setTitle] = useState('');
   const [details, setDetails] = useState('');
   const [titleError, setTitleError] = useState(false);
@@ -64,12 +62,7 @@ const NewNote = () => {
   const [categoryInput, setCategoryInput] = useState(0);
   const [category, setCategory] = useState('');
   const [categoriesArr, setCategoriesArr] = useState([]);
-
-  const { fetchedVideos } = useContext(FetchedVideosContext);
-  console.log('fetchedVideos', fetchedVideos);
-
-  const { videoForNewNote } = useContext(VideoForNewNoteContext);
-  console.log(videoForNewNote);
+  const [chosenVideo, setChosenVideo] = useLocalStorage('newNoteVideo', []);
 
   const addCategoryInput = () => {
     setCategoryInput(categoryInput + 1);
@@ -94,8 +87,18 @@ const NewNote = () => {
 
     if (title && details) {
       console.log(title, details, categoriesArr);
+      localStorage.removeItem('newNoteVideo');
       //   history.push('/search');
     }
+  };
+
+  const htmlEntities = (str) => {
+    return String(str)
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, `'`);
   };
 
   return (
@@ -112,9 +115,12 @@ const NewNote = () => {
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <img
           className={classes.image}
-          src={videoForNewNote.snippet.thumbnails.high.url}
+          src={chosenVideo.snippet.thumbnails.high.url}
         />
-        <Typography> Video Title: {videoForNewNote.snippet.title} </Typography>
+        <Typography>
+          {' '}
+          Video Title: {htmlEntities(chosenVideo.snippet.title)}{' '}
+        </Typography>
         <Typography>
           Source: {`https://www.youtube.com/watch?v=${id}`}
         </Typography>

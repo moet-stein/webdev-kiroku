@@ -3,42 +3,41 @@ import SearchBar from '../components/SearchBar';
 import Video from '../components/Video';
 import axios from 'axios';
 import { Typography } from '@material-ui/core';
-import { FetchedVideosContext } from '../context/fetchedVideosContext';
 import { SearchInputContext } from '../context/searchInputContext';
 
 const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
 
 const Search = () => {
-  const { fetchedVideos, setFetchedVideos, loading, setLoading } = useContext(
-    FetchedVideosContext
-  );
-
   const { searchInput, setSearchInput } = useContext(SearchInputContext);
+  const [loading, setLoading] = useState(true);
   console.log(searchInput);
 
   const [videos, setVideos] = useState([]);
+  const queries = [
+    'javascript',
+    'react app',
+    'mern stack',
+    'web developer',
+    'codingchallenge',
+    'node js',
+    'mongo db',
+    'html css',
+    'typescript',
+    'gatsby js',
+  ];
+
+  let searchQuery =
+    searchInput.length > 0
+      ? searchInput
+      : queries[Math.floor(Math.random() * queries.length)];
 
   useEffect(() => {
-    const queries = [
-      'javascript',
-      'react app',
-      'mern stack',
-      'web developer',
-      'codingchallenge',
-      'node js',
-      'mongo db',
-      'html css',
-      'typescript',
-      'gatsby js',
-    ];
-    let searchQuery = queries[Math.floor(Math.random() * queries.length)];
     const fetchVideos = async () => {
       try {
         const res = await axios.get(
           `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchQuery}&order=viewCount&relevanceLanguage=en&key=${apiKey}`
         );
         setVideos(res.data.items);
-        setFetchedVideos(res.data.items);
         console.log(res.data.items);
         setLoading(false);
       } catch (e) {
@@ -46,7 +45,7 @@ const Search = () => {
       }
     };
     fetchVideos();
-  }, []);
+  }, [searchInput]);
 
   return (
     <div>

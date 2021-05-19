@@ -33,17 +33,17 @@ function App() {
             <Route exact path="/notes">
               <Notes />
             </Route>
-            <FetchedVideosContextProvider>
-              <VideoForNewNoteContextProvider>
-                <SearchInputContextProvider>
-                  <Route exact path="/search">
-                    <Search />
-                  </Route>
-                </SearchInputContextProvider>
-                <Route exact path="/channel/:id" children={<Channel />}></Route>
-                <Route exact path="/newnote/:id" children={<NewNote />}></Route>
-              </VideoForNewNoteContextProvider>
-            </FetchedVideosContextProvider>
+            {/* <FetchedVideosContextProvider> */}
+            <VideoForNewNoteContextProvider>
+              <SearchInputContextProvider>
+                <Route exact path="/search">
+                  <Search />
+                </Route>
+              </SearchInputContextProvider>
+              <Route exact path="/channel/:id" children={<Channel />}></Route>
+              <Route exact path="/newnote/:id" children={<NewNote />}></Route>
+            </VideoForNewNoteContextProvider>
+            {/* </FetchedVideosContextProvider> */}
           </Switch>
         </div>
       </Router>

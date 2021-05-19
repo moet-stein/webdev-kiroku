@@ -57,6 +57,7 @@ const Video = ({ video, channelIcon }) => {
 
   const storeVideoContext = () => {
     setVideoForNewNote(video);
+    localStorage.setItem('newNoteVideo', JSON.stringify(video));
   };
 
   const location = useLocation();
