@@ -30,14 +30,14 @@ function App() {
               <Login />
             </Route>
 
-            <Route exact path="/notes">
-              <Notes />
-            </Route>
             {/* <FetchedVideosContextProvider> */}
             <VideoForNewNoteContextProvider>
               <SearchInputContextProvider>
                 <Route exact path="/search">
                   <Search />
+                </Route>
+                <Route exact path="/notes">
+                  <Notes />
                 </Route>
               </SearchInputContextProvider>
               <Route exact path="/channel/:id" children={<Channel />}></Route>
