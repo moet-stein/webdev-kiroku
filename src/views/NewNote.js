@@ -14,6 +14,14 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import useLocalStorage from '../components/useLocalStorage';
+import 'date-fns';
+import Grid from '@material-ui/core/Grid';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 const useStyles = makeStyles((theme) => ({
   field: {
@@ -63,6 +71,10 @@ const NewNote = () => {
   const [category, setCategory] = useState('');
   const [categoriesArr, setCategoriesArr] = useState([]);
   const [chosenVideo, setChosenVideo] = useLocalStorage('newNoteVideo', []);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
 
   const addCategoryInput = () => {
     setCategoryInput(categoryInput + 1);
@@ -86,7 +98,7 @@ const NewNote = () => {
     }
 
     if (title && details) {
-      console.log(title, details, categoriesArr);
+      console.log(title, details, categoriesArr, selectedDate);
       localStorage.removeItem('newNoteVideo');
       //   history.push('/search');
     }
@@ -117,6 +129,23 @@ const NewNote = () => {
           className={classes.image}
           src={chosenVideo.snippet.thumbnails.high.url}
         />
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <Grid container justify="space-around">
+            <KeyboardDatePicker
+              disableToolbar
+              variant="inline"
+              format="MM/dd/yyyy"
+              margin="normal"
+              id="date-picker-inline"
+              label="Date picker inline"
+              value={selectedDate}
+              onChange={handleDateChange}
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
+            />
+          </Grid>
+        </MuiPickersUtilsProvider>
         <Typography>
           {' '}
           Video Title: {htmlEntities(chosenVideo.snippet.title)}{' '}
