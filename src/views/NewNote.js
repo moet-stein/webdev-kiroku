@@ -1,4 +1,5 @@
 import { React, useState, useEffect, useContext } from 'react';
+import GoBackPage from '../components/GoBackPage';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -72,6 +73,7 @@ const NewNote = () => {
   const [categoriesArr, setCategoriesArr] = useState([]);
   const [chosenVideo, setChosenVideo] = useLocalStorage('newNoteVideo', []);
   const [selectedDate, setSelectedDate] = useState(new Date());
+
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
@@ -115,6 +117,7 @@ const NewNote = () => {
 
   return (
     <Container>
+      <GoBackPage />
       <Typography
         variant="h6"
         color="textSecondary"

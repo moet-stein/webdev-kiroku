@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import { SearchInputContext } from '../context/searchInputContext';
+import useLocalStorage from '../components/useLocalStorage';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -63,11 +64,19 @@ const SearchBar = () => {
   const { searchInput, setSearchInput } = useContext(SearchInputContext);
 
   const [query, setQuery] = useState('');
+  const onKeyPressed = (e) => {
+    if (e.key === 'Enter') {
+      localStorage.removeItem('fetchedVideos');
+      setSearchInput(e.target.value);
+      // const timeOutId = setTimeout(() => setSearchInput(query), 1000);
+      // return () => clearTimeout(timeOutId);
+    }
+  };
 
-  useEffect(() => {
-    const timeOutId = setTimeout(() => setSearchInput(query), 1000);
-    return () => clearTimeout(timeOutId);
-  }, [searchInput]);
+  // useEffect(() => {
+  //   const timeOutId = setTimeout(() => setSearchInput(query), 1000);
+  //   return () => clearTimeout(timeOutId);
+  // }, [searchInput]);
 
   return (
     <div className={classes.grow}>
@@ -79,6 +88,8 @@ const SearchBar = () => {
             </div>
             <InputBase
               onChange={(event) => setQuery(event.target.value)}
+              onKeyDown={onKeyPressed}
+              tabIndex="0"
               placeholder="Search…"
               classes={{
                 root: classes.inputRoot,

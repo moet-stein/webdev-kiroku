@@ -97,7 +97,7 @@ const Video = ({ video, channelIcon }) => {
               </Link>
             }
             action={
-              <Link to={`newnote/${video.id.videoId}`}>
+              <Link to={`/newnote/${video.id.videoId}`}>
                 <IconButton aria-label="settings" onClick={storeVideoContext}>
                   <NoteAddIcon />
                 </IconButton>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import GoBackPage from '../components/GoBackPage';
 import { makeStyles } from '@material-ui/core/styles';
 import ShowVideo from '../components/ShowVideo';
 import Card from '@material-ui/core/Card';
@@ -119,6 +120,7 @@ const Channel = (props) => {
 
   return (
     <div>
+      <GoBackPage />
       {channel.length > 0 &&
         channel.map((c) => {
           return (

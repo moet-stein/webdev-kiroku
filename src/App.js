@@ -8,7 +8,7 @@ import FavoriteChannels from './views/FavoriteChannels';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 // import { VideoForNewNoteContextProvider } from './context/videoForNewNoteContext';
-// import { FetchedVideosContextProvider } from './context/fetchedVideosContext';
+import { FetchedVideosContextProvider } from './context/fetchedVideosContext';
 import { SearchInputContextProvider } from './context/searchInputContext';
 
 const theme = createMuiTheme({
@@ -24,33 +24,38 @@ const theme = createMuiTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <div className="App">
-          <Switch>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/favoritechannels">
-              <FavoriteChannels />
-            </Route>
+      <SearchInputContextProvider>
+        <FetchedVideosContextProvider>
+          <Router>
+            <div className="App">
+              <Switch>
+                <Route exact path="/login">
+                  <Login />
+                </Route>
+                <Route exact path="/favoritechannels">
+                  <FavoriteChannels />
+                </Route>
 
-            {/* <FetchedVideosContextProvider> */}
-            {/* <VideoForNewNoteContextProvider> */}
-            <SearchInputContextProvider>
-              <Route exact path="/search">
-                <Search />
-              </Route>
-              <Route exact path="/notes">
-                <Notes />
-              </Route>
-            </SearchInputContextProvider>
-            <Route exact path="/channel/:id" children={<Channel />}></Route>
-            <Route exact path="/newnote/:id" children={<NewNote />}></Route>
-            {/* </VideoForNewNoteContextProvider> */}
-            {/* </FetchedVideosContextProvider> */}
-          </Switch>
-        </div>
-      </Router>
+                {/* <FetchedVideosContextProvider> */}
+                {/* <VideoForNewNoteContextProvider> */}
+
+                <Route exact path="/search">
+                  <Search />
+                </Route>
+
+                <Route exact path="/notes">
+                  <Notes />
+                </Route>
+
+                <Route exact path="/channel/:id" children={<Channel />}></Route>
+                <Route exact path="/newnote/:id" children={<NewNote />}></Route>
+                {/* </VideoForNewNoteContextProvider> */}
+                {/* </FetchedVideosContextProvider> */}
+              </Switch>
+            </div>
+          </Router>
+        </FetchedVideosContextProvider>
+      </SearchInputContextProvider>
     </ThemeProvider>
   );
 }
