@@ -32,11 +32,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+export default function Signup() {
   const emailRef = useRef();
+  const userNameRef = useRef();
   const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
   const classes = useStyles();
-  const { login } = useAuth();
+  const { signup } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -44,14 +46,20 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log(userNameRef.current.value, emailRef.current.value);
+
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+      return setError(`Passwords do not match`);
+    }
+
     try {
       setError(``);
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
+      await signup(emailRef.current.value, passwordRef.current.value);
       history.push('/');
     } catch (e) {
       console.log(e);
-      setError(`Failed to log in`);
+      setError(`Failed to create an account`);
     }
     setLoading(false);
   };
@@ -64,11 +72,24 @@ export default function Login() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Log In
+          Sign up
         </Typography>
         {error && <Alert severity="error">{error}</Alert>}
         <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="uname"
+                name="userName"
+                variant="outlined"
+                required
+                fullWidth
+                id="userName"
+                label="User Name"
+                autoFocus
+                inputRef={userNameRef}
+              />
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -94,6 +115,18 @@ export default function Login() {
                 autoComplete="current-password"
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password-confirm"
+                label="Password Confirmation"
+                type="password"
+                inputRef={passwordConfirmRef}
+                id="passwordConfirm"
+              />
+            </Grid>
           </Grid>
           <Button
             type="submit"
@@ -103,17 +136,12 @@ export default function Login() {
             className={classes.submit}
             disabled={loading}
           >
-            Log In
+            Sign Up
           </Button>
-          <Grid container direction="column" alignItems="flex-end">
+          <Grid container justify="flex-end">
             <Grid item>
-              <Link to="/signup" variant="body2">
-                Need an account? Sign up
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link to="/forgot-password" variant="body2">
-                Forgot password?
+              <Link to="/login" variant="body2">
+                Already have an account? Log in
               </Link>
             </Grid>
           </Grid>

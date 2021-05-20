@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useAuth } from '../context/AuthContext';
 import Alert from '@material-ui/lab/Alert';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,26 +32,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+export default function ForgotPassword() {
   const emailRef = useRef();
-  const passwordRef = useRef();
   const classes = useStyles();
-  const { login } = useAuth();
+  const { resetPassword } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      setMessage('');
       setError(``);
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-      history.push('/');
+      await resetPassword(emailRef.current.value);
+      setMessage('Check your inbox for further instructions');
     } catch (e) {
       console.log(e);
-      setError(`Failed to log in`);
+      setError(`Failed to reset password`);
     }
     setLoading(false);
   };
@@ -64,9 +64,10 @@ export default function Login() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Log In
+          Password Reset
         </Typography>
         {error && <Alert severity="error">{error}</Alert>}
+        {message && <Alert severity="success">{message}</Alert>}
         <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -81,19 +82,6 @@ export default function Login() {
                 inputRef={emailRef}
               />
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                inputRef={passwordRef}
-                id="password"
-                autoComplete="current-password"
-              />
-            </Grid>
           </Grid>
           <Button
             type="submit"
@@ -103,17 +91,17 @@ export default function Login() {
             className={classes.submit}
             disabled={loading}
           >
-            Log In
+            Reset Password
           </Button>
           <Grid container direction="column" alignItems="flex-end">
             <Grid item>
-              <Link to="/signup" variant="body2">
-                Need an account? Sign up
+              <Link to="/login" variant="body2">
+                Log in
               </Link>
             </Grid>
             <Grid item>
-              <Link to="/forgot-password" variant="body2">
-                Forgot password?
+              <Link to="/signup" variant="body2">
+                Need an account? Sign up
               </Link>
             </Grid>
           </Grid>

@@ -32,28 +32,44 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+export default function UpdateProfile() {
   const emailRef = useRef();
+  const userNameRef = useRef();
   const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
   const classes = useStyles();
-  const { login } = useAuth();
+  const { currentUser, updateEmail, updatePassword } = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    try {
-      setError(``);
-      setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
-      history.push('/');
-    } catch (e) {
-      console.log(e);
-      setError(`Failed to log in`);
+    console.log(userNameRef.current.value, emailRef.current.value);
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+      return setError(`Passwords do not match`);
     }
-    setLoading(false);
+
+    const promises = [];
+    setLoading(true);
+    setError(``);
+    if (emailRef.current.value !== currentUser.email) {
+      promises.push(updateEmail(emailRef.current.value));
+    }
+    if (passwordRef.current.value) {
+      promises.push(updatePassword(passwordRef.current.value));
+    }
+
+    Promise.all(promises)
+      .then(() => {
+        history.push('/');
+      })
+      .catch(() => {
+        setError('Failed to update account');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -64,21 +80,45 @@ export default function Login() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Log In
+          Update Profile
         </Typography>
         {error && <Alert severity="error">{error}</Alert>}
         <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
+                autoComplete="uname"
+                name="userName"
                 variant="outlined"
                 required
+                fullWidth
+                id="userName"
+                label="User Name"
+                autoFocus
+                inputRef={userNameRef}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
                 fullWidth
                 id="email"
                 label="Email Address"
                 name="email"
                 autoComplete="email"
                 inputRef={emailRef}
+                defaultValue={currentUser.email}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                fullWidth
+                label="Password"
+                type="password"
+                inputRef={passwordRef}
+                id="password"
+                placeholder="Leave blank to keep the same"
               />
             </Grid>
             <Grid item xs={12}>
@@ -86,12 +126,12 @@ export default function Login() {
                 variant="outlined"
                 required
                 fullWidth
-                name="password"
-                label="Password"
+                name="password-confirm"
+                label="Password Confirmation"
                 type="password"
-                inputRef={passwordRef}
-                id="password"
-                autoComplete="current-password"
+                inputRef={passwordConfirmRef}
+                id="passwordConfirm"
+                placeholder="Leave blank to keep the same"
               />
             </Grid>
           </Grid>
@@ -103,17 +143,12 @@ export default function Login() {
             className={classes.submit}
             disabled={loading}
           >
-            Log In
+            Update
           </Button>
-          <Grid container direction="column" alignItems="flex-end">
+          <Grid container justify="flex-end">
             <Grid item>
-              <Link to="/signup" variant="body2">
-                Need an account? Sign up
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link to="/forgot-password" variant="body2">
-                Forgot password?
+              <Link to="/" variant="body2">
+                Cancel
               </Link>
             </Grid>
           </Grid>
