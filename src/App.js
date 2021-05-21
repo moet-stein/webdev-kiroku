@@ -11,7 +11,7 @@ import FavoriteChannels from './views/FavoriteChannels';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
-// import { VideoForNewNoteContextProvider } from './context/videoForNewNoteContext';
+import { VideoForNewNoteContextProvider } from './context/videoForNewNoteContext';
 import { FetchedVideosContextProvider } from './context/fetchedVideosContext';
 import { SearchInputContextProvider } from './context/searchInputContext';
 import { AuthProvider } from './context/AuthContext';
@@ -51,27 +51,22 @@ function App() {
                   </Route>
 
                   {/* <FetchedVideosContextProvider> */}
-                  {/* <VideoForNewNoteContextProvider> */}
+                  <VideoForNewNoteContextProvider>
+                    <Route exact path="/search">
+                      <Search />
+                    </Route>
 
-                  <Route exact path="/search">
-                    <Search />
-                  </Route>
+                    <Route exact path="/notes">
+                      <Notes />
+                    </Route>
 
-                  <Route exact path="/notes">
-                    <Notes />
-                  </Route>
-
-                  <Route
-                    exact
-                    path="/channel/:id"
-                    children={<Channel />}
-                  ></Route>
-                  <Route
-                    exact
-                    path="/newnote/:id"
-                    children={<NewNote />}
-                  ></Route>
-                  {/* </VideoForNewNoteContextProvider> */}
+                    <Route
+                      exact
+                      path="/channel/:id"
+                      children={<Channel />}
+                    ></Route>
+                    <Route exact path="/newnote/:id" component={NewNote} />
+                  </VideoForNewNoteContextProvider>
                   {/* </FetchedVideosContextProvider> */}
                 </Switch>
               </div>

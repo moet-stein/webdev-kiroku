@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-import { SearchInputContext } from '../context/searchInputContext';
-import useLocalStorage from '../components/useLocalStorage';
+import { FetchedVideosContext } from '../context/fetchedVideosContext';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -61,13 +59,16 @@ const useStyles = makeStyles((theme) => ({
 const SearchBar = () => {
   const classes = useStyles();
 
-  const { searchInput, setSearchInput } = useContext(SearchInputContext);
+  const { searchInput, setSearchInput, setFetchAgain } = useContext(
+    FetchedVideosContext
+  );
 
   const [query, setQuery] = useState('');
   const onKeyPressed = (e) => {
     if (e.key === 'Enter') {
       localStorage.removeItem('fetchedVideos');
       setSearchInput(e.target.value);
+      setFetchAgain(true);
       // const timeOutId = setTimeout(() => setSearchInput(query), 1000);
       // return () => clearTimeout(timeOutId);
     }

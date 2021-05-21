@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import Container from '@material-ui/core/Container';
 import NoteCard from '../components/NoteCard';
 import Masonry from 'react-masonry-css';
 import moduleClasses from './NoteDate.module.css';

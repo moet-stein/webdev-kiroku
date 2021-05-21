@@ -2,7 +2,7 @@
 import React, { createContext, useState } from 'react';
 // 2. initialize the context
 const initVideoForNewNoteContext = {
-  videoForNewNote: [],
+  videoForNewNote: {},
 };
 // 3. create context
 export const VideoForNewNoteContext = createContext(initVideoForNewNoteContext);
@@ -14,7 +14,7 @@ export const VideoForNewNoteContextProvider = ({ children }) => {
   );
 
   const clearVideoForNewNote = () => {
-    setVideoForNewNote([]);
+    setVideoForNewNote({});
   };
   return (
     <VideoForNewNoteContext.Provider

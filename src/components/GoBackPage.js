@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router';
-
+// import { FetchedVideosContext } from '../context/fetchedVideosContext';
 const useStyles = makeStyles((theme) => ({
   marginFlex: {
     marginTop: theme.spacing(2),
@@ -17,6 +17,9 @@ const GoBackPage = () => {
   const classes = useStyles();
 
   const history = useHistory();
+  // const { fetchAgain, setFetchAgain, setLoading } = useContext(
+  //   FetchedVideosContext
+  // );
 
   const goBack = () => {
     history.goBack();

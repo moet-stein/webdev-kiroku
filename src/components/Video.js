@@ -15,10 +15,9 @@ import {
   Route,
   Link,
   useLocation,
-  browserHistory,
 } from 'react-router-dom';
-// import { VideoForNewNoteContext } from '../context/videoForNewNoteContext';
-
+import { VideoForNewNoteContext } from '../context/videoForNewNoteContext';
+import { FetchedVideosContext } from '../context/fetchedVideosContext';
 const useStyles = makeStyles((theme) => ({
   flex: {
     display: 'flex',
@@ -49,21 +48,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Video = ({ video, channelIcon }) => {
-  // const {
-  //   videoForNewNote,
-  //   setVideoForNewNote,
-  //   clearVideoForNewNote,
-  // } = useContext(VideoForNewNoteContext);
+  const { fetchAgain, setFetchAgain, setLoading } = useContext(
+    FetchedVideosContext
+  );
+  const {
+    videoForNewNote,
+    setVideoForNewNote,
+    clearVideoForNewNote,
+  } = useContext(VideoForNewNoteContext);
+  console.log(videoForNewNote);
 
   const storeVideoContext = () => {
     // setVideoForNewNote(video);
-    localStorage.setItem('newNoteVideo', JSON.stringify(video));
+    setFetchAgain(false);
+    setLoading(false);
+    console.log(video);
+    setVideoForNewNote(video);
+    // setVideo(video);
+    // localStorage.setItem('newNoteVideo', JSON.stringify(video));
   };
 
   const location = useLocation();
   const [searchPage, setSearchPage] = useState(true);
   useEffect(() => {
-    setSearchPage(location.pathname == '/search' ? true : false);
+    setSearchPage(location.pathname === '/search' ? true : false);
   }, []);
 
   const classes = useStyles();

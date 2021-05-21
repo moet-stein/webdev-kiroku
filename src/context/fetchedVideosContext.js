@@ -4,6 +4,8 @@ import React, { createContext, useState } from 'react';
 const initFetchedVideosContext = {
   fetchedVideos: [],
   loading: true,
+  fetchAgain: true,
+  searchInput: '',
 };
 // 3. create context
 export const FetchedVideosContext = createContext(initFetchedVideosContext);
@@ -14,7 +16,19 @@ export const FetchedVideosContextProvider = ({ children }) => {
     initFetchedVideosContext.fetchedVideos
   );
   const [loading, setLoading] = useState(initFetchedVideosContext.loading);
-
+  const [fetchAgain, setFetchAgain] = useState(
+    initFetchedVideosContext.fetchAgain
+  );
+  const [searchInput, setSearchInput] = useState(
+    initFetchedVideosContext.searchInput
+  );
+  console.log(loading);
+  // const isFetchAgain = () => {
+  //   fetchedVideos.length === 0 || searchInput === ''
+  //     ? setFetchAgain(true)
+  //     : setFetchAgain(false);
+  // };
+  // isFetchAgain();
   return (
     <FetchedVideosContext.Provider
       value={{
@@ -22,6 +36,10 @@ export const FetchedVideosContextProvider = ({ children }) => {
         setFetchedVideos,
         loading,
         setLoading,
+        searchInput,
+        setSearchInput,
+        fetchAgain,
+        setFetchAgain,
       }}
     >
       {children}

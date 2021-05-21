@@ -1,4 +1,5 @@
 import { React, useState, useEffect, useContext } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import GoBackPage from '../components/GoBackPage';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -23,7 +24,7 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-
+import { VideoForNewNoteContext } from '../context/videoForNewNoteContext';
 const useStyles = makeStyles((theme) => ({
   field: {
     marginTop: 20,
@@ -73,7 +74,11 @@ const NewNote = () => {
   const [categoriesArr, setCategoriesArr] = useState([]);
   const [chosenVideo, setChosenVideo] = useLocalStorage('newNoteVideo', []);
   const [selectedDate, setSelectedDate] = useState(new Date());
-
+  const {
+    videoForNewNote,
+    setVideoForNewNote,
+    clearVideoForNewNote,
+  } = useContext(VideoForNewNoteContext);
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
@@ -130,7 +135,7 @@ const NewNote = () => {
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <img
           className={classes.image}
-          src={chosenVideo.snippet.thumbnails.high.url}
+          src={videoForNewNote.snippet.thumbnails.high.url}
         />
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Grid container justify="space-around">
@@ -151,7 +156,7 @@ const NewNote = () => {
         </MuiPickersUtilsProvider>
         <Typography>
           {' '}
-          Video Title: {htmlEntities(chosenVideo.snippet.title)}{' '}
+          Video Title: {htmlEntities(videoForNewNote.snippet.title)}{' '}
         </Typography>
         <Typography>
           Source: {`https://www.youtube.com/watch?v=${id}`}
