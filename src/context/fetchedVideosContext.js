@@ -22,7 +22,7 @@ export const FetchedVideosContextProvider = ({ children }) => {
   const [searchInput, setSearchInput] = useState(
     initFetchedVideosContext.searchInput
   );
-  console.log(loading);
+
   // const isFetchAgain = () => {
   //   fetchedVideos.length === 0 || searchInput === ''
   //     ? setFetchAgain(true)

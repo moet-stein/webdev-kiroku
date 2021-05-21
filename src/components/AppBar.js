@@ -41,7 +41,8 @@ export default function AppBar() {
   const history = useHistory();
   const pageLoc = () => {
     if (location.pathname === '/search') return 0;
-    // if (location.pathname === '/newnote') return 1;
+    if (location.pathname === '/newnotewithoutvideo') return 1;
+    if (location.pathname.includes('newnote')) return 1;
     if (location.pathname === '/notes') return 2;
     if (location.pathname === '/favoritechannels') return 3;
   };
@@ -84,6 +85,8 @@ export default function AppBar() {
         <BottomNavigationAction
           className={classes.noPaddingSide}
           label="Create"
+          component={Link}
+          to="/newnotewithoutvideo"
           icon={<CreateIcon />}
         />
         <BottomNavigationAction

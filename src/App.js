@@ -7,6 +7,7 @@ import ForgotPassword from './views/ForgotPassword';
 import Notes from './views/Notes';
 import Channel from './views/Channel';
 import NewNote from './views/NewNote';
+import NewNoteWithoutVideo from './views/NewNoteWithoutVideo';
 import FavoriteChannels from './views/FavoriteChannels';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
@@ -53,18 +54,24 @@ function App() {
                     component={FavoriteChannels}
                   />
 
+                  <PrivateRoute
+                    exact
+                    path="/newnotewithoutvideo"
+                    component={NewNoteWithoutVideo}
+                  />
+
                   {/* <FetchedVideosContextProvider> */}
                   <VideoForNewNoteContextProvider>
                     <Route exact path="/search" component={Search} />
 
                     <PrivateRoute exact path="/notes" component={Notes} />
 
-                    <Route
+                    <Route exact path="/channel/:id" component={Channel} />
+                    <PrivateRoute
                       exact
-                      path="/channel/:id"
-                      children={<Channel />}
-                    ></Route>
-                    <Route exact path="/newnote/:id" component={NewNote} />
+                      path="/newnote/:id"
+                      component={NewNote}
+                    />
                   </VideoForNewNoteContextProvider>
                   {/* </FetchedVideosContextProvider> */}
                 </Switch>

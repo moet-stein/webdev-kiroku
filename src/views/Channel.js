@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import GoBackPage from '../components/GoBackPage';
+import AppBar from '../components/AppBar';
+import VisitorAppBar from '../components/VisitorAppBar';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth } from '../context/AuthContext';
 import ShowVideo from '../components/ShowVideo';
@@ -210,6 +212,7 @@ const Channel = (props) => {
             </div>
           );
         })}
+      {currentUser ? <AppBar /> : <VisitorAppBar />}
     </div>
   );
 };
