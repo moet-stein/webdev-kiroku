@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -29,6 +30,11 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+  },
+  flex: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: theme.spacing(3),
   },
 }));
 
@@ -146,6 +152,12 @@ export default function Signup() {
             </Grid>
           </Grid>
         </form>
+        <Link to="/search" className={classes.flex}>
+          <Avatar className={classes.avatar}>
+            <EmojiPeopleIcon />
+          </Avatar>
+          <Typography>See as a visitor</Typography>
+        </Link>
       </div>
     </Container>
   );

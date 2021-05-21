@@ -1,5 +1,6 @@
-import { React, useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import AppBar from '../components/AppBar';
 import GoBackPage from '../components/GoBackPage';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -121,128 +122,131 @@ const NewNote = () => {
   };
 
   return (
-    <Container>
-      <GoBackPage />
-      <Typography
-        variant="h6"
-        color="textSecondary"
-        component="h2"
-        gutterBottom
-      >
-        Create a New Note
-      </Typography>
-
-      <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-        <img
-          className={classes.image}
-          src={videoForNewNote.snippet.thumbnails.high.url}
-        />
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <Grid container justify="space-around">
-            <KeyboardDatePicker
-              disableToolbar
-              variant="inline"
-              format="MM/dd/yyyy"
-              margin="normal"
-              id="date-picker-inline"
-              label="Date picker inline"
-              value={selectedDate}
-              onChange={handleDateChange}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
-            />
-          </Grid>
-        </MuiPickersUtilsProvider>
-        <Typography>
-          {' '}
-          Video Title: {htmlEntities(videoForNewNote.snippet.title)}{' '}
-        </Typography>
-        <Typography>
-          Source: {`https://www.youtube.com/watch?v=${id}`}
-        </Typography>
-        <TextField
-          onChange={(e) => setTitle(e.target.value)}
-          className={classes.field}
-          label="Note Title"
-          variant="outlined"
-          color="secondary"
-          fullWidth
-          required
-          error={titleError}
-        />
-        <TextField
-          onChange={(e) => setDetails(e.target.value)}
-          className={classes.field}
-          label="Details"
-          variant="outlined"
-          color="secondary"
-          multiline
-          rows={4}
-          fullWidth
-          required
-          error={detailsError}
-        />
-
-        <div className={classes.field}>
-          <div className={classes.flexSpaceAround}>
-            <TextField
-              onChange={handleInputChange}
-              className={classes.marginWidth70}
-              label="category"
-              variant="outlined"
-              color="secondary"
-              fullWidth
-
-              // error={titleError}
-            />
-
-            <AddCircleOutlineIcon
-              style={{ color: green[500] }}
-              onClick={addCategoryInput}
-            />
-          </div>
-        </div>
-
-        <div className={classes.flexColumn}>
-          {categoriesArr.length > 0 && (
-            <Typography variant="h5" gutterBottom>
-              Categories
-            </Typography>
-          )}
-
-          <div className={classes.demo}>
-            <List>
-              {categoriesArr.map((category) => (
-                <ListItem key={category}>
-                  <ListItemText
-                    className={classes.categoryMargin}
-                    primary={
-                      category.length > 13
-                        ? `${category.slice(0, 13)}...`
-                        : category
-                    }
-                  />
-                  <ListItemIcon>
-                    <HighlightOffIcon />
-                  </ListItemIcon>
-                </ListItem>
-              ))}
-            </List>
-          </div>
-        </div>
-
-        <Button
-          className={classes.marginWidth70}
-          type="submit"
-          color="secondary"
-          variant="contained"
-          endIcon={<ArrowForwardIcon />}
+    <React.Fragment>
+      <Container>
+        <GoBackPage />
+        <Typography
+          variant="h6"
+          color="textSecondary"
+          component="h2"
+          gutterBottom
         >
-          Submit
-        </Button>
-      </form>
-    </Container>
+          Create a New Note
+        </Typography>
+
+        <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+          <img
+            className={classes.image}
+            src={videoForNewNote.snippet.thumbnails.high.url}
+          />
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid container justify="space-around">
+              <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                format="MM/dd/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                label="Date picker inline"
+                value={selectedDate}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+            </Grid>
+          </MuiPickersUtilsProvider>
+          <Typography>
+            {' '}
+            Video Title: {htmlEntities(videoForNewNote.snippet.title)}{' '}
+          </Typography>
+          <Typography>
+            Source: {`https://www.youtube.com/watch?v=${id}`}
+          </Typography>
+          <TextField
+            onChange={(e) => setTitle(e.target.value)}
+            className={classes.field}
+            label="Note Title"
+            variant="outlined"
+            color="secondary"
+            fullWidth
+            required
+            error={titleError}
+          />
+          <TextField
+            onChange={(e) => setDetails(e.target.value)}
+            className={classes.field}
+            label="Details"
+            variant="outlined"
+            color="secondary"
+            multiline
+            rows={4}
+            fullWidth
+            required
+            error={detailsError}
+          />
+
+          <div className={classes.field}>
+            <div className={classes.flexSpaceAround}>
+              <TextField
+                onChange={handleInputChange}
+                className={classes.marginWidth70}
+                label="category"
+                variant="outlined"
+                color="secondary"
+                fullWidth
+
+                // error={titleError}
+              />
+
+              <AddCircleOutlineIcon
+                style={{ color: green[500] }}
+                onClick={addCategoryInput}
+              />
+            </div>
+          </div>
+
+          <div className={classes.flexColumn}>
+            {categoriesArr.length > 0 && (
+              <Typography variant="h5" gutterBottom>
+                Categories
+              </Typography>
+            )}
+
+            <div className={classes.demo}>
+              <List>
+                {categoriesArr.map((category) => (
+                  <ListItem key={category}>
+                    <ListItemText
+                      className={classes.categoryMargin}
+                      primary={
+                        category.length > 13
+                          ? `${category.slice(0, 13)}...`
+                          : category
+                      }
+                    />
+                    <ListItemIcon>
+                      <HighlightOffIcon />
+                    </ListItemIcon>
+                  </ListItem>
+                ))}
+              </List>
+            </div>
+          </div>
+
+          <Button
+            className={classes.marginWidth70}
+            type="submit"
+            color="secondary"
+            variant="contained"
+            endIcon={<ArrowForwardIcon />}
+          >
+            Submit
+          </Button>
+        </form>
+      </Container>
+      <AppBar />
+    </React.Fragment>
   );
 };
 

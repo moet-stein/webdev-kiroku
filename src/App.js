@@ -15,6 +15,7 @@ import { VideoForNewNoteContextProvider } from './context/videoForNewNoteContext
 import { FetchedVideosContextProvider } from './context/fetchedVideosContext';
 import { SearchInputContextProvider } from './context/searchInputContext';
 import { AuthProvider } from './context/AuthContext';
+import './App.css';
 
 const theme = createMuiTheme({
   typography: {
@@ -46,19 +47,17 @@ function App() {
                   <Route exact path="/login" children={<Login />} />
                   <Route path="/forgot-password" component={ForgotPassword} />
 
-                  <Route exact path="/favoritechannels">
-                    <FavoriteChannels />
-                  </Route>
+                  <PrivateRoute
+                    exact
+                    path="/favoritechannels"
+                    component={FavoriteChannels}
+                  />
 
                   {/* <FetchedVideosContextProvider> */}
                   <VideoForNewNoteContextProvider>
-                    <Route exact path="/search">
-                      <Search />
-                    </Route>
+                    <Route exact path="/search" component={Search} />
 
-                    <Route exact path="/notes">
-                      <Notes />
-                    </Route>
+                    <PrivateRoute exact path="/notes" component={Notes} />
 
                     <Route
                       exact

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import GoBackPage from '../components/GoBackPage';
 import { makeStyles } from '@material-ui/core/styles';
+import { useAuth } from '../context/AuthContext';
 import ShowVideo from '../components/ShowVideo';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -69,6 +70,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Channel = (props) => {
   const { id } = useParams();
+  const { currentUser } = useAuth();
   const classes = useStyles();
   const [channel, setChannel] = useState([]);
   const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
@@ -126,15 +128,17 @@ const Channel = (props) => {
           return (
             <div key={c.etag} className={classes.flex}>
               <Card className={classes.firstRoot}>
-                <IconButton
-                  onClick={toggleFavorite}
-                  aria-label="add to favorites"
-                >
-                  <FavoriteIcon
-                    fontSize="large"
-                    style={{ color: heartColor }}
-                  />
-                </IconButton>
+                {currentUser && (
+                  <IconButton
+                    onClick={toggleFavorite}
+                    aria-label="add to favorites"
+                  >
+                    <FavoriteIcon
+                      fontSize="large"
+                      style={{ color: heartColor }}
+                    />
+                  </IconButton>
+                )}
                 <Avatar
                   className={classes.large}
                   src={c.snippet.thumbnails.high.url}

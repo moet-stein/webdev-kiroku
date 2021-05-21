@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { useAuth } from '../context/AuthContext';
 import IconButton from '@material-ui/core/IconButton';
 import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
@@ -11,6 +12,15 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
+import { FetchedVideosContext } from '../context/fetchedVideosContext';
+import { VideoForNewNoteContext } from '../context/videoForNewNoteContext';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useLocation,
+} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -39,7 +49,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const Modal = ({ video }) => {
   const classes = useStyles();
+  const { currentUser } = useAuth();
   const [open, setOpen] = React.useState(false);
+  const { fetchAgain, setFetchAgain, setLoading } = useContext(
+    FetchedVideosContext
+  );
+  const {
+    videoForNewNote,
+    setVideoForNewNote,
+    clearVideoForNewNote,
+  } = useContext(VideoForNewNoteContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -47,6 +66,13 @@ const Modal = ({ video }) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const storeVideoContext = () => {
+    setFetchAgain(false);
+    setLoading(false);
+    console.log(video);
+    setVideoForNewNote(video);
   };
 
   return (
@@ -80,7 +106,13 @@ const Modal = ({ video }) => {
             {/* <Button autoFocus color="inherit" onClick={handleClose}>
               save
             </Button> */}
-            <NoteAddIcon />
+            {currentUser && (
+              <Link to={`/newnote/${video.id.videoId}`}>
+                <IconButton aria-label="settings" onClick={storeVideoContext}>
+                  <NoteAddIcon />
+                </IconButton>
+              </Link>
+            )}
           </Toolbar>
         </AppBar>
         <Card className={classes.videoCard}>

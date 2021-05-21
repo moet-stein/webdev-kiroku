@@ -30,6 +30,9 @@ export default function Dashboard() {
       <Button variant="contained" onClick={handleLogout}>
         Log Out
       </Button>
+      <Link to="/favoritechannels">
+        <Button variant="contained"> Favorite Channels</Button>
+      </Link>
     </div>
   );
 }

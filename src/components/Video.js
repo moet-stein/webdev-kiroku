@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Modal from './Modal';
+import { useAuth } from '../context/AuthContext';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -48,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Video = ({ video, channelIcon }) => {
+  const { currentUser } = useAuth();
   const { fetchAgain, setFetchAgain, setLoading } = useContext(
     FetchedVideosContext
   );
@@ -56,16 +58,12 @@ const Video = ({ video, channelIcon }) => {
     setVideoForNewNote,
     clearVideoForNewNote,
   } = useContext(VideoForNewNoteContext);
-  console.log(videoForNewNote);
 
   const storeVideoContext = () => {
-    // setVideoForNewNote(video);
     setFetchAgain(false);
     setLoading(false);
     console.log(video);
     setVideoForNewNote(video);
-    // setVideo(video);
-    // localStorage.setItem('newNoteVideo', JSON.stringify(video));
   };
 
   const location = useLocation();
@@ -99,17 +97,24 @@ const Video = ({ video, channelIcon }) => {
           <CardHeader
             avatar={
               <Link to={`channel/${video.snippet.channelId}`}>
-                <Button key={video.etag} variant="outlined" color="primary">
+                <Button
+                  key={video.etag}
+                  variant="outlined"
+                  color="primary"
+                  onClick={storeVideoContext}
+                >
                   {channelTitle}
                 </Button>
               </Link>
             }
             action={
-              <Link to={`/newnote/${video.id.videoId}`}>
-                <IconButton aria-label="settings" onClick={storeVideoContext}>
-                  <NoteAddIcon />
-                </IconButton>
-              </Link>
+              currentUser && (
+                <Link to={`/newnote/${video.id.videoId}`}>
+                  <IconButton aria-label="settings" onClick={storeVideoContext}>
+                    <NoteAddIcon />
+                  </IconButton>
+                </Link>
+              )
             }
           />
         )}
@@ -120,14 +125,17 @@ const Video = ({ video, channelIcon }) => {
                 alt="Remy Sharp"
                 src={channelIcon}
                 title={video.snippet.title}
+                onClick={storeVideoContext}
               />
             }
             action={
-              <Link to={`/newnote/${video.id.videoId}`}>
-                <IconButton aria-label="settings" onClick={storeVideoContext}>
-                  <NoteAddIcon />
-                </IconButton>
-              </Link>
+              currentUser && (
+                <Link to={`/newnote/${video.id.videoId}`}>
+                  <IconButton aria-label="settings" onClick={storeVideoContext}>
+                    <NoteAddIcon />
+                  </IconButton>
+                </Link>
+              )
             }
           />
         )}

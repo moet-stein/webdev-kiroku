@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
+import AppBar from '../components/AppBar';
+import VisitorAppBar from '../components/VisitorAppBar';
+import { useAuth } from '../context/AuthContext';
 import SearchBar from '../components/SearchBar';
 import Video from '../components/Video';
 import axios from 'axios';
@@ -11,6 +14,7 @@ const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
 
 const Search = () => {
   // const { searchInput, setSearchInput } = useContext(SearchInputContext);
+  const { currentUser } = useAuth();
   const {
     fetchedVideos,
     setFetchedVideos,
@@ -75,7 +79,7 @@ const Search = () => {
   }, [searchInput]);
 
   return (
-    <div>
+    <React.Fragment>
       <Typography>WebDev Kiroku</Typography>
       <SearchBar />
       {!loading ? (
@@ -85,7 +89,8 @@ const Search = () => {
       ) : (
         <Typography>Loading</Typography>
       )}
-    </div>
+      {currentUser ? <AppBar /> : <VisitorAppBar />}
+    </React.Fragment>
   );
 };
 
