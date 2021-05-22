@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import GoBackPage from '../components/GoBackPage';
-import AppBar from '../components/AppBar';
+import AppBarComponent from '../components/AppBarComponent';
 import VisitorAppBar from '../components/VisitorAppBar';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth } from '../context/AuthContext';
@@ -25,6 +25,8 @@ import {
   Link,
   useParams,
 } from 'react-router-dom';
+import { Box } from '@material-ui/core';
+import ProfileMenu from '../components/ProfileMenu';
 
 const useStyles = makeStyles((theme) => ({
   flex: {
@@ -124,7 +126,22 @@ const Channel = (props) => {
 
   return (
     <div>
-      <GoBackPage />
+      {currentUser ? (
+        <Box display="flex" p={1}>
+          <Box flexGrow={1}>
+            <GoBackPage />
+          </Box>
+          <Box p={1}>
+            <ProfileMenu />
+          </Box>
+        </Box>
+      ) : (
+        <GoBackPage />
+      )}
+
+      <Typography variant="h5" color="textSecondary">
+        Channel Detail
+      </Typography>
       {channel.length > 0 &&
         channel.map((c) => {
           return (
@@ -212,7 +229,7 @@ const Channel = (props) => {
             </div>
           );
         })}
-      {currentUser ? <AppBar /> : <VisitorAppBar />}
+      {currentUser ? <AppBarComponent /> : <VisitorAppBar />}
     </div>
   );
 };

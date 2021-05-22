@@ -1,5 +1,5 @@
 import Search from './views/Search';
-import Dashboard from './views/Dashboard';
+import Profile from './views/Profile';
 import UpdateProfile from './views/UpdateProfile';
 import Signup from './views/Signup';
 import Login from './views/Login';
@@ -38,12 +38,14 @@ function App() {
               <div className="App">
                 <Switch>
                   {/* PRivate route is only for users who are logged in */}
-                  <PrivateRoute exact path="/" component={Dashboard} />
+                  {/* Peofile */}
+                  <PrivateRoute exact path="/user" component={Profile} />
                   <PrivateRoute
                     exact
                     path="/update-profile"
                     component={UpdateProfile}
                   />
+                  {/* Authentication */}
                   <Route exact path="/signup" children={<Signup />} />
                   <Route exact path="/login" children={<Login />} />
                   <Route path="/forgot-password" component={ForgotPassword} />

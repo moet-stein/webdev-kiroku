@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link, useHistory } from 'react-router-dom';
 
-export default function Dashboard() {
+function Profile() {
   const [error, setError] = useState('');
   const { currentUser, logout } = useAuth();
   const history = useHistory();
@@ -36,3 +36,5 @@ export default function Dashboard() {
     </div>
   );
 }
+
+export default Profile;

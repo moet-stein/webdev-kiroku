@@ -1,5 +1,5 @@
 import React from 'react';
-import AppBar from '../components/AppBar';
+import AppBarComponent from '../components/AppBarComponent';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -8,6 +8,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import { Box } from '@material-ui/core';
+import ProfileMenu from '../components/ProfileMenu';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +27,16 @@ const FavoriteChannels = () => {
 
   return (
     <React.Fragment>
+      <Box display="flex" p={1}>
+        <Box flexGrow={1} mt={3}>
+          <Typography variant="h5" color="textSecondary">
+            Favorite Channels
+          </Typography>
+        </Box>
+        <Box p={1}>
+          <ProfileMenu />
+        </Box>
+      </Box>
       <List className={classes.root}>
         <ListItem alignItems="flex-start">
           <ListItemAvatar>
@@ -92,7 +104,7 @@ const FavoriteChannels = () => {
           />
         </ListItem>
       </List>
-      <AppBar />
+      <AppBarComponent />
     </React.Fragment>
   );
 };

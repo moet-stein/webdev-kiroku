@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import AppBar from '../components/AppBar';
+import AppBarComponent from '../components/AppBarComponent';
+import ProfileMenu from '../components/ProfileMenu';
 import VisitorAppBar from '../components/VisitorAppBar';
 import { useAuth } from '../context/AuthContext';
 import SearchBar from '../components/SearchBar';
 import Video from '../components/Video';
 import axios from 'axios';
-import { Typography } from '@material-ui/core';
+import { Box, Divider, Typography } from '@material-ui/core';
 // import { SearchInputContext } from '../context/searchInputContext';
 import { FetchedVideosContext } from '../context/fetchedVideosContext';
 import useLocalStorage from '../components/useLocalStorage';
@@ -80,8 +81,21 @@ const Search = () => {
 
   return (
     <React.Fragment>
-      <Typography>WebDev Kiroku</Typography>
+      {currentUser ? (
+        <Box display="flex" p={1}>
+          <Box flexGrow={1} mt={3}>
+            <Typography variant="h5">Kiroku</Typography>
+          </Box>
+          <Box p={1}>
+            <ProfileMenu />
+          </Box>
+        </Box>
+      ) : (
+        <Typography variant="h5">Kiroku</Typography>
+      )}
+
       <SearchBar />
+
       {!loading ? (
         fetchedVideos.map((video) => {
           return <Video key={video.etag} video={video} />;
@@ -89,7 +103,8 @@ const Search = () => {
       ) : (
         <Typography>Loading</Typography>
       )}
-      {currentUser ? <AppBar /> : <VisitorAppBar />}
+
+      {currentUser ? <AppBarComponent /> : <VisitorAppBar />}
     </React.Fragment>
   );
 };

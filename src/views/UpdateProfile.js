@@ -62,7 +62,7 @@ export default function UpdateProfile() {
 
     Promise.all(promises)
       .then(() => {
-        history.push('/');
+        history.push('/user');
       })
       .catch(() => {
         setError('Failed to update account');
@@ -147,7 +147,7 @@ export default function UpdateProfile() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link to="/" variant="body2">
+              <Link to="/user" variant="body2">
                 Cancel
               </Link>
             </Grid>

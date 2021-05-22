@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import AppBar from '../components/AppBar';
+import AppBarComponent from '../components/AppBarComponent';
+import ProfileMenu from '../components/ProfileMenu';
 import GoBackPage from '../components/GoBackPage';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { makeStyles } from '@material-ui/core';
+import { Box, makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { useHistory, useParams } from 'react-router';
 import { green } from '@material-ui/core/colors';
@@ -28,7 +29,7 @@ import {
 const useStyles = makeStyles((theme) => ({
   field: {
     marginTop: 20,
-    marginBottom: 20,
+    bottom: 0,
     display: 'block',
   },
   image: {
@@ -107,14 +108,16 @@ const NewNoteWithoutVideo = () => {
   return (
     <React.Fragment>
       <Container>
-        <Typography
-          variant="h6"
-          color="textSecondary"
-          component="h2"
-          gutterBottom
-        >
-          Create a New Note
-        </Typography>
+        <Box display="flex" p={1}>
+          <Box flexGrow={1} mt={3}>
+            <Typography variant="h5" color="textSecondary">
+              Create a New Note
+            </Typography>
+          </Box>
+          <Box p={1}>
+            <ProfileMenu />
+          </Box>
+        </Box>
 
         <form noValidate autoComplete="off" onSubmit={handleSubmit}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -224,7 +227,7 @@ const NewNoteWithoutVideo = () => {
           </Button>
         </form>
       </Container>
-      <AppBar />
+      <AppBarComponent />
     </React.Fragment>
   );
 };

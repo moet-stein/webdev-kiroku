@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ProfileMenu from './ProfileMenu';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth } from '../context/AuthContext';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -23,8 +24,9 @@ const useStyles = makeStyles({
   //     width: 400,
   //   },
   root: {
-    width: 400,
+    width: 410,
     position: 'fixed',
+    height: '40px',
     bottom: 0,
   },
   noPaddingSide: {
@@ -33,12 +35,9 @@ const useStyles = makeStyles({
   },
 });
 
-export default function AppBar() {
+export default function AppBarComponent() {
   const classes = useStyles();
   const location = useLocation();
-  const { currentUser, logout } = useAuth();
-  const [error, setError] = useState('');
-  const history = useHistory();
   const pageLoc = () => {
     if (location.pathname === '/search') return 0;
     if (location.pathname === '/newnotewithoutvideo') return 1;
@@ -51,23 +50,9 @@ export default function AppBar() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const handleLogout = async () => {
-    setError('');
-    try {
-      await logout();
-      history.push('/login');
-    } catch {
-      setError('Failed to log out');
-    }
-  };
 
   return (
     <React.Fragment>
-      {error && (
-        <Button variant="outlined" color="primary">
-          {error}
-        </Button>
-      )}
       <BottomNavigation
         value={value}
         onChange={handleChange}
@@ -103,12 +88,6 @@ export default function AppBar() {
           to="/favoritechannels"
           label="Favorites"
           icon={<FavoriteIcon />}
-        />
-        <BottomNavigationAction
-          className={classes.noPaddingSide}
-          label="Logout"
-          icon={<ExitToAppIcon />}
-          onClick={handleLogout}
         />
       </BottomNavigation>
     </React.Fragment>

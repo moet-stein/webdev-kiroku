@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import AppBar from '../components/AppBar';
+import AppBarComponent from '../components/AppBarComponent';
 import GoBackPage from '../components/GoBackPage';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { makeStyles } from '@material-ui/core';
+import { Box, makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { useHistory, useParams } from 'react-router';
 import { green } from '@material-ui/core/colors';
@@ -26,6 +26,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { VideoForNewNoteContext } from '../context/videoForNewNoteContext';
+import ProfileMenu from '../components/ProfileMenu';
 const useStyles = makeStyles((theme) => ({
   field: {
     marginTop: 20,
@@ -123,17 +124,18 @@ const NewNote = () => {
 
   return (
     <React.Fragment>
+      <Box display="flex" p={1}>
+        <Box flexGrow={1}>
+          <GoBackPage />
+        </Box>
+        <Box p={1}>
+          <ProfileMenu />
+        </Box>
+      </Box>
+      <Typography variant="h5" color="textSecondary">
+        Create a New Note
+      </Typography>
       <Container>
-        <GoBackPage />
-        <Typography
-          variant="h6"
-          color="textSecondary"
-          component="h2"
-          gutterBottom
-        >
-          Create a New Note
-        </Typography>
-
         <form noValidate autoComplete="off" onSubmit={handleSubmit}>
           <img
             className={classes.image}
@@ -245,7 +247,7 @@ const NewNote = () => {
           </Button>
         </form>
       </Container>
-      <AppBar />
+      <AppBarComponent />
     </React.Fragment>
   );
 };
