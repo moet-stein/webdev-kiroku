@@ -27,6 +27,9 @@ import {
 } from '@material-ui/pickers';
 import { VideoForNewNoteContext } from '../context/videoForNewNoteContext';
 import ProfileMenu from '../components/ProfileMenu';
+import { database, notes } from '../firebase';
+import { useAuth } from '../context/AuthContext';
+
 const useStyles = makeStyles((theme) => ({
   field: {
     marginTop: 20,
@@ -76,6 +79,8 @@ const NewNote = () => {
   const [categoriesArr, setCategoriesArr] = useState([]);
   const [chosenVideo, setChosenVideo] = useLocalStorage('newNoteVideo', []);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const { currentUser } = useAuth();
+
   const {
     videoForNewNote,
     setVideoForNewNote,
@@ -99,6 +104,7 @@ const NewNote = () => {
     setTitleError(false);
     setDetailsError(false);
 
+    // Check if the title and details are not empty
     if (title == '') {
       setTitleError(true);
     }
@@ -106,9 +112,19 @@ const NewNote = () => {
       setDetailsError(true);
     }
 
+    // Create a note in the database
+
     if (title && details) {
       console.log(title, details, categoriesArr, selectedDate);
-      localStorage.removeItem('newNoteVideo');
+      database.notes.add({
+        title: title,
+        details: details,
+        categories: categoriesArr,
+        date: selectedDate,
+        userId: currentUser.uid,
+        // parentId
+        // path
+      });
       //   history.push('/search');
     }
   };
