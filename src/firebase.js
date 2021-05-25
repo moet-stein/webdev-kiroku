@@ -17,6 +17,7 @@ export const database = {
   dates: firestore.collection('dates'),
   notes: firestore.collection('notes'),
   favChannels: firestore.collection('favChannels'),
+  getCurrentTimestamp: firebase.firestore.FieldValue.serverTimestamp,
 };
 
 export const auth = app.auth();

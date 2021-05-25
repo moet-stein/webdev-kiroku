@@ -66,6 +66,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NewNote = () => {
+  useEffect(() => {
+    console.log('hello');
+    database.notes
+      .doc()
+      .get()
+      .then((doc) => {
+        const formattedDoc = {
+          id: doc.id,
+          ...doc.data(),
+        };
+        console.log(formattedDoc);
+      });
+  }, []);
+
   const { id } = useParams();
   const imageUrl = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
   const classes = useStyles();
@@ -122,6 +136,7 @@ const NewNote = () => {
         categories: categoriesArr,
         date: selectedDate,
         userId: currentUser.uid,
+        createdAt: database.getCurrentTimestamp(),
         // parentId
         // path
       });

@@ -61,8 +61,12 @@ export default function Signup() {
     try {
       setError(``);
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
-      history.push('/');
+      await signup(
+        emailRef.current.value,
+        passwordRef.current.value,
+        userNameRef.current.value
+      );
+      history.push('/user');
     } catch (e) {
       console.log(e);
       setError(`Failed to create an account`);
