@@ -65,25 +65,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NewNote = () => {
-  useEffect(() => {
-    console.log('hello');
-    database.notes
-      .doc()
-      .get()
-      .then((doc) => {
-        const formattedDoc = {
-          id: doc.id,
-          ...doc.data(),
-        };
-        console.log(formattedDoc);
-      });
-  }, []);
+  // useEffect(() => {
+  //   database.notes
+  //     .doc()
+  //     .get()
+  //     .then((doc) => {
+  //       const formattedDoc = {
+  //         id: doc.id,
+  //         ...doc.data(),
+  //       };
+  //       console.log(formattedDoc);
+  //     });
+  // }, []);
 
   const { id } = useParams();
   const imageUrl = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
   const classes = useStyles();
   const history = useHistory();
   const [title, setTitle] = useState('');
+  const [url, setUrl] = useState(`https://www.youtube.com/watch?v=${id}`);
   const [details, setDetails] = useState('');
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
@@ -98,6 +98,7 @@ const NewNote = () => {
     setVideoForNewNote,
     clearVideoForNewNote,
   } = useContext(VideoForNewNoteContext);
+
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
@@ -112,6 +113,7 @@ const NewNote = () => {
   };
 
   const handleSubmit = (e) => {
+    console.log(selectedDate);
     e.preventDefault();
     setTitleError(false);
     setDetailsError(false);
@@ -127,17 +129,50 @@ const NewNote = () => {
     // Create a note in the database
 
     if (title && details) {
-      console.log(title, details, categoriesArr, selectedDate);
-      database.notes.add({
+      const onlyDate = selectedDate.toISOString().slice(0, 10);
+      console.log(onlyDate);
+      const uesrDatesNotesRef = database.datesNotes.doc(currentUser.uid);
+      // create datesNotes collection
+      uesrDatesNotesRef.get().then((docSnapshot) => {
+        if (docSnapshot.exists) {
+          console.log('it exist');
+        } else {
+          uesrDatesNotesRef.set({});
+        }
+      });
+      // create date collection in datesNotes collection
+      uesrDatesNotesRef
+        .doc(onlyDate)
+        .get()
+        .then((docSnapshot) => {
+          if (docSnapshot.exists) {
+            console.log('it exist');
+          } else {
+            uesrDatesNotesRef.doc(onlyDate).set({});
+          }
+        });
+      // create note document in date collection
+      uesrDatesNotesRef.doc(onlyDate).add({
         title: title,
         details: details,
         categories: categoriesArr,
-        date: selectedDate,
+        date: onlyDate,
         userId: currentUser.uid,
         createdAt: database.getCurrentTimestamp(),
-        // parentId
-        // path
+        url: `https://www.youtube.com/watch?v=${id}`,
+        thumbnail: videoForNewNote.snippet.thumbnails.high.url,
       });
+
+      // database.dates
+      //   .doc(onlyDate)
+      //   .get()
+      //   .then((docSnapshot) => {
+      //     if (docSnapshot.exists) {
+      //       console.log('it exist');
+      //     } else {
+      //       database.dates.doc(onlyDate).set({ date: onlyDate });
+      //     }
+      //   });
       //   history.push('/search');
     }
   };
@@ -203,6 +238,15 @@ const NewNote = () => {
             fullWidth
             required
             error={titleError}
+          />
+          <TextField
+            onChange={(e) => setUrl(e.target.value)}
+            className={classes.field}
+            label="Any Link?"
+            value={url}
+            variant="outlined"
+            color="secondary"
+            fullWidth
           />
           <TextField
             onChange={(e) => setDetails(e.target.value)}

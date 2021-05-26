@@ -14,8 +14,7 @@ const app = firebase.initializeApp({
 const firestore = app.firestore();
 export const database = {
   users: firestore.collection('users'),
-  dates: firestore.collection('dates'),
-  notes: firestore.collection('notes'),
+  datesNotes: firestore.collection('datesNotes'),
   favChannels: firestore.collection('favChannels'),
   getCurrentTimestamp: firebase.firestore.FieldValue.serverTimestamp,
 };

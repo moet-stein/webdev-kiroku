@@ -25,6 +25,8 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import { database, notes } from '../firebase';
+import { useAuth } from '../context/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   field: {
@@ -65,6 +67,7 @@ const NewNoteWithoutVideo = () => {
   const classes = useStyles();
   const history = useHistory();
   const [title, setTitle] = useState('');
+  const [url, setUrl] = useState('');
   const [details, setDetails] = useState('');
   const [titleError, setTitleError] = useState(false);
   const [detailsError, setDetailsError] = useState(false);
@@ -72,6 +75,7 @@ const NewNoteWithoutVideo = () => {
   const [category, setCategory] = useState('');
   const [categoriesArr, setCategoriesArr] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const { currentUser } = useAuth();
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -91,6 +95,7 @@ const NewNoteWithoutVideo = () => {
     setTitleError(false);
     setDetailsError(false);
 
+    // Check if the title and details are not empty
     if (title == '') {
       setTitleError(true);
     }
@@ -98,9 +103,20 @@ const NewNoteWithoutVideo = () => {
       setDetailsError(true);
     }
 
+    // Create a note in the database
+
     if (title && details) {
       console.log(title, details, categoriesArr, selectedDate);
-      localStorage.removeItem('newNoteVideo');
+      database.notes.add({
+        title: title,
+        details: details,
+        categories: categoriesArr,
+        date: selectedDate,
+        userId: currentUser.uid,
+        createdAt: database.getCurrentTimestamp(),
+        url: url,
+        thumbnail: '',
+      });
       //   history.push('/search');
     }
   };
@@ -149,6 +165,7 @@ const NewNoteWithoutVideo = () => {
             error={titleError}
           />
           <TextField
+            onChange={(e) => setUrl(e.target.value)}
             className={classes.field}
             label="Any Link?"
             variant="outlined"
