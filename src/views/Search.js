@@ -6,15 +6,12 @@ import { useAuth } from '../context/AuthContext';
 import SearchBar from '../components/SearchBar';
 import Video from '../components/Video';
 import axios from 'axios';
-import { Box, Divider, Typography } from '@material-ui/core';
-// import { SearchInputContext } from '../context/searchInputContext';
+import { Box, Typography } from '@material-ui/core';
 import { FetchedVideosContext } from '../context/fetchedVideosContext';
-import useLocalStorage from '../components/useLocalStorage';
 
 const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
 
 const Search = () => {
-  // const { searchInput, setSearchInput } = useContext(SearchInputContext);
   const { currentUser } = useAuth();
   const {
     fetchedVideos,
@@ -26,11 +23,7 @@ const Search = () => {
     loading,
     setLoading,
   } = useContext(FetchedVideosContext);
-  // const [fetchedVs, setFetchedVs] = useLocalStorage('fetchedVideos', []);
   console.log(fetchedVideos);
-  // const [loading, setLoading] = useState(true);
-
-  // const [videos, setVideos] = useState([]);
   const queries = [
     'javascript',
     'react app',
@@ -55,27 +48,14 @@ const Search = () => {
         `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchQuery}&order=viewCount&relevanceLanguage=en&key=${apiKey}`
       );
       setFetchedVideos(res.data.items);
-      // setVideos(res.data.items);
-      // setFetchAgain(false)
       setLoading(false);
       console.log(res.data.items);
     } catch (e) {
       console.log(e);
     }
   };
-  // const isFetchAgain = () => {
-  //   fetchedVideos.length === 0 || searchInput === ''
-  //     ? fetchVideos()
-  //     : setLoading(false);
-  // };
 
   useEffect(() => {
-    // isFetchAgain();
-    // if (fetchedVideos.length === 0) {
-
-    // } else {
-    // setLoading(false);
-    // }
     if (fetchAgain) fetchVideos();
   }, [searchInput]);
 

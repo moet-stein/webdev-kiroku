@@ -16,7 +16,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import useLocalStorage from '../components/useLocalStorage';
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
@@ -91,7 +90,6 @@ const NewNote = () => {
   const [categoryInput, setCategoryInput] = useState(0);
   const [category, setCategory] = useState('');
   const [categoriesArr, setCategoriesArr] = useState([]);
-  const [chosenVideo, setChosenVideo] = useLocalStorage('newNoteVideo', []);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { currentUser } = useAuth();
 

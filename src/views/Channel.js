@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import GoBackPage from '../components/GoBackPage';
 import AppBarComponent from '../components/AppBarComponent';
+import Favorite from '../components/Favorite';
 import VisitorAppBar from '../components/VisitorAppBar';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth } from '../context/AuthContext';
@@ -14,9 +15,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import { grey, red } from '@material-ui/core/colors';
+// import IconButton from '@material-ui/core/IconButton';
+// import FavoriteIcon from '@material-ui/icons/Favorite';
+// import { grey, red } from '@material-ui/core/colors';
 import axios from 'axios';
 import {
   BrowserRouter as Router,
@@ -79,8 +80,8 @@ const Channel = (props) => {
   const [channel, setChannel] = useState([]);
   const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
   const [show, setShow] = useState(false);
-  const [added, setAdded] = useState(false);
-  const [heartColor, setHeartColor] = useState('grey');
+  // const [added, setAdded] = useState(false);
+  // const [heartColor, setHeartColor] = useState('grey');
 
   const numberConverter = (num) => {
     if (num > 999 && num < 1000000) {
@@ -104,10 +105,10 @@ const Channel = (props) => {
   const showVideos = () => {
     show ? setShow(false) : setShow(true);
   };
-  const toggleFavorite = () => {
-    added ? setAdded(false) : setAdded(true);
-    added ? setHeartColor('grey') : setHeartColor('red');
-  };
+  // const toggleFavorite = () => {
+  //   added ? setAdded(false) : setAdded(true);
+  //   added ? setHeartColor('grey') : setHeartColor('red');
+  // };
 
   useEffect(() => {
     const fetchChannel = async () => {
@@ -148,7 +149,8 @@ const Channel = (props) => {
             <div key={c.etag} className={classes.flex}>
               <Card className={classes.firstRoot}>
                 {currentUser && (
-                  <IconButton
+                  <Favorite channel={c} />
+                  /* <IconButton
                     onClick={toggleFavorite}
                     aria-label="add to favorites"
                   >
@@ -156,7 +158,7 @@ const Channel = (props) => {
                       fontSize="large"
                       style={{ color: heartColor }}
                     />
-                  </IconButton>
+                  </IconButton> */
                 )}
                 <Avatar
                   className={classes.large}

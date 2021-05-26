@@ -16,6 +16,7 @@ import { VideoForNewNoteContextProvider } from './context/videoForNewNoteContext
 import { FetchedVideosContextProvider } from './context/fetchedVideosContext';
 import { SearchInputContextProvider } from './context/searchInputContext';
 import { AuthProvider } from './context/AuthContext';
+import { FavChansContextProvider } from './context/favChansContext';
 import './App.css';
 
 const theme = createMuiTheme({
@@ -35,49 +36,50 @@ function App() {
         <AuthProvider>
           <SearchInputContextProvider>
             <FetchedVideosContextProvider>
-              <div className="App">
-                <Switch>
-                  {/* PRivate route is only for users who are logged in */}
-                  {/* Peofile */}
-                  <PrivateRoute exact path="/user" component={Profile} />
-                  <PrivateRoute
-                    exact
-                    path="/update-profile"
-                    component={UpdateProfile}
-                  />
-                  {/* Authentication */}
-                  <Route exact path="/signup" children={<Signup />} />
-                  <Route exact path="/login" children={<Login />} />
-                  <Route path="/forgot-password" component={ForgotPassword} />
-
-                  <PrivateRoute
-                    exact
-                    path="/favoritechannels"
-                    component={FavoriteChannels}
-                  />
-
-                  <PrivateRoute
-                    exact
-                    path="/newnotewithoutvideo"
-                    component={NewNoteWithoutVideo}
-                  />
-
-                  {/* <FetchedVideosContextProvider> */}
-                  <VideoForNewNoteContextProvider>
-                    <Route exact path="/search" component={Search} />
-
-                    <PrivateRoute exact path="/notes" component={Notes} />
-
-                    <Route exact path="/channel/:id" component={Channel} />
+              <FavChansContextProvider>
+                <div className="App">
+                  <Switch>
+                    {/* PRivate route is only for users who are logged in */}
+                    {/* Peofile */}
+                    <PrivateRoute exact path="/user" component={Profile} />
                     <PrivateRoute
                       exact
-                      path="/newnote/:id"
-                      component={NewNote}
+                      path="/update-profile"
+                      component={UpdateProfile}
                     />
-                  </VideoForNewNoteContextProvider>
-                  {/* </FetchedVideosContextProvider> */}
-                </Switch>
-              </div>
+                    {/* Authentication */}
+                    <Route exact path="/signup" children={<Signup />} />
+                    <Route exact path="/login" children={<Login />} />
+                    <Route path="/forgot-password" component={ForgotPassword} />
+
+                    <PrivateRoute
+                      exact
+                      path="/favoritechannels"
+                      component={FavoriteChannels}
+                    />
+
+                    <PrivateRoute
+                      exact
+                      path="/newnotewithoutvideo"
+                      component={NewNoteWithoutVideo}
+                    />
+                    {/* <FetchedVideosContextProvider> */}
+                    <VideoForNewNoteContextProvider>
+                      <Route exact path="/search" component={Search} />
+
+                      <PrivateRoute exact path="/notes" component={Notes} />
+
+                      <Route exact path="/channel/:id" component={Channel} />
+                      <PrivateRoute
+                        exact
+                        path="/newnote/:id"
+                        component={NewNote}
+                      />
+                    </VideoForNewNoteContextProvider>
+                    {/* </FetchedVideosContextProvider> */}
+                  </Switch>
+                </div>
+              </FavChansContextProvider>
             </FetchedVideosContextProvider>
           </SearchInputContextProvider>
         </AuthProvider>
