@@ -80,8 +80,7 @@ const Channel = (props) => {
   const [channel, setChannel] = useState([]);
   const apiKey = process.env.REACT_APP_YOUTUBE_API_KEY;
   const [show, setShow] = useState(false);
-  // const [added, setAdded] = useState(false);
-  // const [heartColor, setHeartColor] = useState('grey');
+  const [error, setError] = useState(false);
 
   const numberConverter = (num) => {
     if (num > 999 && num < 1000000) {
@@ -105,10 +104,6 @@ const Channel = (props) => {
   const showVideos = () => {
     show ? setShow(false) : setShow(true);
   };
-  // const toggleFavorite = () => {
-  //   added ? setAdded(false) : setAdded(true);
-  //   added ? setHeartColor('grey') : setHeartColor('red');
-  // };
 
   useEffect(() => {
     const fetchChannel = async () => {
@@ -120,10 +115,11 @@ const Channel = (props) => {
         setChannel(res.data.items);
       } catch (e) {
         console.log('error', e);
+        setError(true);
       }
     };
     fetchChannel();
-  }, []);
+  }, [error]);
 
   return (
     <div>
@@ -143,7 +139,13 @@ const Channel = (props) => {
       <Typography variant="h5" color="textSecondary">
         Channel Detail
       </Typography>
-      {channel.length > 0 &&
+      {error && (
+        <Typography variant="h2" color="textSecondary">
+          Channel Not Found
+        </Typography>
+      )}
+      {!error &&
+        channel.length > 0 &&
         channel.map((c) => {
           return (
             <div key={c.etag} className={classes.flex}>
@@ -178,7 +180,11 @@ const Channel = (props) => {
                 <CardActionArea>
                   <CardMedia
                     className={classes.media}
-                    image={c.brandingSettings.image.bannerExternalUrl}
+                    image={
+                      c.brandingSettings.image
+                        ? c.brandingSettings.image.bannerExternalUrl
+                        : ''
+                    }
                     title="Contemplative Reptile"
                   />
                   <CardContent className={classes.marginEverything}>

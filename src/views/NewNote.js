@@ -140,39 +140,27 @@ const NewNote = () => {
           uesrDatesNotesRef.set({});
         }
       });
+
       // create date collection in datesNotes collection
       uesrDatesNotesRef
-        .doc(onlyDate)
+        .collection(onlyDate)
         .get()
         .then((docSnapshot) => {
           if (docSnapshot.exists) {
             console.log('it exist');
           } else {
-            uesrDatesNotesRef.doc(onlyDate).set({});
+            uesrDatesNotesRef.collection(onlyDate).add({
+              title: title,
+              details: details,
+              categories: categoriesArr,
+              date: onlyDate,
+              userId: currentUser.uid,
+              createdAt: database.getCurrentTimestamp(),
+              url: `https://www.youtube.com/watch?v=${id}`,
+              thumbnail: videoForNewNote.snippet.thumbnails.high.url,
+            });
           }
         });
-      // create note document in date collection
-      uesrDatesNotesRef.doc(onlyDate).add({
-        title: title,
-        details: details,
-        categories: categoriesArr,
-        date: onlyDate,
-        userId: currentUser.uid,
-        createdAt: database.getCurrentTimestamp(),
-        url: `https://www.youtube.com/watch?v=${id}`,
-        thumbnail: videoForNewNote.snippet.thumbnails.high.url,
-      });
-
-      // database.dates
-      //   .doc(onlyDate)
-      //   .get()
-      //   .then((docSnapshot) => {
-      //     if (docSnapshot.exists) {
-      //       console.log('it exist');
-      //     } else {
-      //       database.dates.doc(onlyDate).set({ date: onlyDate });
-      //     }
-      //   });
       //   history.push('/search');
     }
   };

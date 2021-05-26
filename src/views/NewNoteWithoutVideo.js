@@ -106,17 +106,38 @@ const NewNoteWithoutVideo = () => {
     // Create a note in the database
 
     if (title && details) {
-      console.log(title, details, categoriesArr, selectedDate);
-      database.notes.add({
-        title: title,
-        details: details,
-        categories: categoriesArr,
-        date: selectedDate,
-        userId: currentUser.uid,
-        createdAt: database.getCurrentTimestamp(),
-        url: url,
-        thumbnail: '',
+      const onlyDate = selectedDate.toISOString().slice(0, 10);
+      console.log(onlyDate);
+      const uesrDatesNotesRef = database.datesNotes.doc(currentUser.uid);
+      // create datesNotes collection
+      uesrDatesNotesRef.get().then((docSnapshot) => {
+        if (docSnapshot.exists) {
+          console.log('it exist');
+        } else {
+          uesrDatesNotesRef.set({});
+        }
       });
+
+      // create date collection in datesNotes collection
+      uesrDatesNotesRef
+        .collection(onlyDate)
+        .get()
+        .then((docSnapshot) => {
+          if (docSnapshot.exists) {
+            console.log('it exist');
+          } else {
+            uesrDatesNotesRef.collection(onlyDate).add({
+              title: title,
+              details: details,
+              categories: categoriesArr,
+              date: onlyDate,
+              userId: currentUser.uid,
+              createdAt: database.getCurrentTimestamp(),
+              url: url,
+              thumbnail: '',
+            });
+          }
+        });
       //   history.push('/search');
     }
   };
