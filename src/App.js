@@ -9,6 +9,7 @@ import Channel from './views/Channel';
 import NewNote from './views/NewNote';
 import NewNoteWithoutVideo from './views/NewNoteWithoutVideo';
 import FavoriteChannels from './views/FavoriteChannels';
+import NoteDetail from './views/NoteDetail';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
@@ -73,6 +74,12 @@ function App() {
                         <Route exact path="/search" component={Search} />
 
                         <PrivateRoute exact path="/notes" component={Notes} />
+
+                        <PrivateRoute
+                          exact
+                          path="/notedetail/:id"
+                          component={NoteDetail}
+                        />
 
                         <Route exact path="/channel/:id" component={Channel} />
                         <PrivateRoute

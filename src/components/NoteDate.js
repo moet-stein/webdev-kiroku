@@ -10,12 +10,17 @@ import moduleClasses from './NoteDate.module.css';
 import { NotesContext } from '../context/notesContext';
 import { useAuth } from '../context/AuthContext';
 import { firestore, database, users, datesNotes } from '../firebase';
+import { blueGrey } from '@material-ui/core/colors';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     maxWidth: 420,
     backgroundColor: theme.palette.background.paper,
+  },
+  grey: {
+    color: blueGrey[700],
   },
   marginSide: {
     width: '100%',
@@ -95,6 +100,7 @@ const NoteDate = ({ date }) => {
   const classes = useStyles();
 
   useEffect(() => {
+    setNotesArr([]);
     database.users
       .doc(currentUser.uid)
       .collection('notes')
@@ -103,7 +109,7 @@ const NoteDate = ({ date }) => {
       .get()
       .then((querySnapshot) =>
         querySnapshot.forEach((doc) => {
-          console.log(doc.data());
+          setNotesArr((oldArr) => [...oldArr, doc.data()]);
         })
       );
   }, []);
@@ -119,7 +125,14 @@ const NoteDate = ({ date }) => {
       {/* DATES FROM FIREBASE, LOOPING MAPPING FOR DIVIDER */}
       <List>
         <ListItem>
-          <ListItemText primary={date} />
+          <ListItemText
+            disableTypography
+            primary={
+              <Typography variant="h6" className={classes.grey}>
+                {date}
+              </Typography>
+            }
+          />
         </ListItem>
         <Divider component="li" variant="inset" />
       </List>
@@ -134,7 +147,7 @@ const NoteDate = ({ date }) => {
               if (note.date === date) {
                 return (
                   <div item key={note.id}>
-                    <NoteCard />
+                    <NoteCard key={note.id} note={note} />
                   </div>
                 );
               }

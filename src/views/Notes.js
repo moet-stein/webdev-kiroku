@@ -21,9 +21,7 @@ const useStyles = makeStyles(() => ({
 const Notes = () => {
   const classes = useStyles();
   const { currentUser } = useAuth();
-  const { notesArr, setNotesArr, uniDatesArr, setUniDatesArr } = useContext(
-    NotesContext
-  );
+  const { notesArr, setNotesArr } = useContext(NotesContext);
   const [datesArr, setDatesArr] = useState([]);
 
   const getDates = async () => {
@@ -36,30 +34,9 @@ const Notes = () => {
         .then((querySnapshot) =>
           querySnapshot.forEach((doc) => {
             console.log(doc.data().date);
-            // setNotesArr((oldArr) => [...oldArr, doc.data()]);
             setDatesArr((oldArr) => [...oldArr, doc.data().date]);
           })
         );
-      // datesArr.forEach((date) => {
-      //   return database.users
-      //     .doc(currentUser.uid)
-      //     .collection('notes')
-      //     .doc(date)
-      //     .collection(`${date}notes`)
-      //     .get()
-      //     .then((querySnapshot) =>
-      //       querySnapshot.forEach((doc) => {
-      //         console.log(doc.data());
-      //       })
-      //     );
-      // });
-
-      // notesArr.map((n) => setDatesArr((oldArr) => [...oldArr, n.date]));
-      // const uniqueDates = datesArr.filter((v, i, a) => a.indexOf(v) === i);
-      // const dates = uniqueDates.sort(
-      //   (a, b) => new Date(b).valueOf() - new Date(a).valueOf()
-      // );
-      // setUniqueDatesArr(dates);
     } catch (err) {
       console.log(err);
     }
@@ -81,9 +58,6 @@ const Notes = () => {
         </Box>
       </Box>
       <SearchBar />
-      {/* {dates.map((date) => (
-        <NoteDate date={date} />
-      ))} */}
       {datesArr.length > 0 &&
         datesArr.map((d) => {
           return <NoteDate key={d} date={d} />;

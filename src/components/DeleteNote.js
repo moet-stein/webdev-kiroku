@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { makeStyles } from '@material-ui/core';
 import { useAuth } from '../context/AuthContext';
 import { auth, database, users, favChannels } from '../firebase';
-import { FavChansContext } from '../context/favChansContext';
+import { NotesContext } from '../context/notesContext';
 
 const useStyles = makeStyles(() => ({
   marginTop: {
@@ -17,22 +17,21 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Delete = ({ channel }) => {
+const DeleteNote = ({ note }) => {
   const classes = useStyles();
   const { currentUser } = useAuth();
-  const favChanId = channel.channelId + currentUser.uid;
-  const { favChansArr, setFavChansArr } = useContext(FavChansContext);
+  const { notesArr, setNotesArr } = useContext(NotesContext);
 
   const handleDelete = () => {
-    database.favChannels
-      .doc(favChanId)
+    database.users
+      .doc(currentUser.uid)
+      .collection(note.date)
+      .doc(note.noteId)
       .delete()
       .then(() => {
-        setFavChansArr(
-          favChansArr.filter((ch) => ch.channelId !== channel.channelId)
-        );
+        setNotesArr(notesArr.filter((n) => n.noteId !== note.noteId));
         console.log('successfully deleted it');
-        console.log(favChansArr);
+        console.log(notesArr);
       });
   };
   return (
@@ -48,4 +47,4 @@ const Delete = ({ channel }) => {
   );
 };
 
-export default Delete;
+export default DeleteNote;

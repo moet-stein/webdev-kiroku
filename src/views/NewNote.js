@@ -65,19 +65,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NewNote = () => {
-  // useEffect(() => {
-  //   database.notes
-  //     .doc()
-  //     .get()
-  //     .then((doc) => {
-  //       const formattedDoc = {
-  //         id: doc.id,
-  //         ...doc.data(),
-  //       };
-  //       console.log(formattedDoc);
-  //     });
-  // }, []);
-
   const { id } = useParams();
   const imageUrl = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
   const classes = useStyles();
@@ -92,6 +79,11 @@ const NewNote = () => {
   const [categoriesArr, setCategoriesArr] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { currentUser } = useAuth();
+  const [noteId, setNoteId] = useState('');
+
+  useEffect(() => {
+    setNoteId('_' + Math.random().toString(36).substr(2, 9));
+  }, []);
 
   const {
     videoForNewNote,
@@ -129,27 +121,19 @@ const NewNote = () => {
     // Create a note in the database
 
     if (title && details) {
+      console.log(noteId);
       const onlyDate = selectedDate.toISOString().slice(0, 10);
       console.log(onlyDate);
       const uesrDatesNotesRef = database.users.doc(currentUser.uid);
-
-      // uesrDatesNotesRef.collection('notes').add({
-      //   // title: title,
-      //   // details: details,
-      //   // categories: categoriesArr,
-      //   // date: onlyDate,
-      //   // userId: currentUser.uid,
-      //   // createdAt: database.getCurrentTimestamp(),
-      //   // url: `https://www.youtube.com/watch?v=${id}`,
-      //   // thumbnail: videoForNewNote.snippet.thumbnails.high.url,
-      // });
 
       const storeNotes = () => {
         uesrDatesNotesRef
           .collection('notes')
           .doc(onlyDate)
           .collection(onlyDate + 'notes')
-          .add({
+          .doc(noteId)
+          .set({
+            noteId: noteId,
             title: title,
             details: details,
             categories: categoriesArr,

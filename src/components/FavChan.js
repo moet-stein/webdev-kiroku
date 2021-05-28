@@ -1,6 +1,6 @@
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
-import Delete from '../components/Delete';
+import DeleteChannel from './DeleteChannel';
 import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -15,6 +15,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const FavChan = ({ channel }) => {
+  console.log(channel);
   const classes = useStyles();
   const description =
     channel.description.length > 200
@@ -45,7 +46,7 @@ const FavChan = ({ channel }) => {
             </React.Fragment>
           }
         />
-        <Delete channel={channel} />
+        <DeleteChannel channel={channel} />
       </ListItem>
     </React.Fragment>
   );

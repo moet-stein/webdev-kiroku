@@ -76,6 +76,11 @@ const NewNoteWithoutVideo = () => {
   const [categoriesArr, setCategoriesArr] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const { currentUser } = useAuth();
+  const [noteId, setNoteId] = useState('');
+
+  useEffect(() => {
+    setNoteId('_' + Math.random().toString(36).substr(2, 9));
+  }, []);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -115,7 +120,9 @@ const NewNoteWithoutVideo = () => {
           .collection('notes')
           .doc(onlyDate)
           .collection(onlyDate + 'notes')
-          .add({
+          .doc(noteId)
+          .set({
+            noteId: noteId,
             title: title,
             details: details,
             categories: categoriesArr,
