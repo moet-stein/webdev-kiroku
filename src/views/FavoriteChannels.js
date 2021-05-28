@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 const FavoriteChannels = () => {
   const classes = useStyles();
   const { currentUser } = useAuth();
-  const [favChans, setFavChans] = useState([]);
+  // const [favChans, setFavChans] = useState([]);
   const { favChansArr, setFavChansArr } = useContext(FavChansContext);
 
   useEffect(() => {

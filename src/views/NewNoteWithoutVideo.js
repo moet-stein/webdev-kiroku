@@ -108,36 +108,62 @@ const NewNoteWithoutVideo = () => {
     if (title && details) {
       const onlyDate = selectedDate.toISOString().slice(0, 10);
       console.log(onlyDate);
-      const uesrDatesNotesRef = database.datesNotes.doc(currentUser.uid);
-      // create datesNotes collection
-      uesrDatesNotesRef.get().then((docSnapshot) => {
-        if (docSnapshot.exists) {
-          console.log('it exist');
-        } else {
-          uesrDatesNotesRef.set({});
-        }
-      });
+      const uesrDatesNotesRef = database.users.doc(currentUser.uid);
 
-      // create date collection in datesNotes collection
+      const storeNotes = () => {
+        uesrDatesNotesRef
+          .collection('notes')
+          .doc(onlyDate)
+          .collection(onlyDate + 'notes')
+          .add({
+            title: title,
+            details: details,
+            categories: categoriesArr,
+            date: onlyDate,
+            userId: currentUser.uid,
+            createdAt: database.getCurrentTimestamp(),
+            url: url,
+            thumbnail: '',
+          });
+      };
+
       uesrDatesNotesRef
-        .collection(onlyDate)
+        .collection('notes')
+        .doc(onlyDate)
+        .collection(onlyDate + 'notes')
         .get()
-        .then((docSnapshot) => {
-          if (docSnapshot.exists) {
-            console.log('it exist');
+        .then((doc) => {
+          if (doc.exist) {
+            storeNotes();
           } else {
-            uesrDatesNotesRef.collection(onlyDate).add({
-              title: title,
-              details: details,
-              categories: categoriesArr,
-              date: onlyDate,
-              userId: currentUser.uid,
-              createdAt: database.getCurrentTimestamp(),
-              url: url,
-              thumbnail: '',
-            });
+            uesrDatesNotesRef
+              .collection('notes')
+              .doc(onlyDate)
+              .set({ date: onlyDate });
+            storeNotes();
           }
         });
+
+      // create date collection in datesNotes collection
+      // uesrDatesNotesRef
+      //   .collection(onlyDate)
+      //   .get()
+      //   .then((docSnapshot) => {
+      //     if (docSnapshot.exists) {
+      //       console.log('it exist');
+      //     } else {
+      //       uesrDatesNotesRef.collection(onlyDate).add({
+      //         title: title,
+      //         details: details,
+      //         categories: categoriesArr,
+      //         date: onlyDate,
+      //         userId: currentUser.uid,
+      //         createdAt: database.getCurrentTimestamp(),
+      //         url: url,
+      //         thumbnail: '',
+      //       });
+      //     }
+      //   });
       //   history.push('/search');
     }
   };

@@ -9,7 +9,9 @@ export const FavChansContext = createContext(initfavChansContext);
 
 // 4. make provider => value / children
 export const FavChansContextProvider = ({ children }) => {
-  const [favChansArr, setFavChansArr] = useState(initfavChansContext.favChans);
+  const [favChansArr, setFavChansArr] = useState(
+    initfavChansContext.favChansArr
+  );
 
   return (
     <FavChansContext.Provider

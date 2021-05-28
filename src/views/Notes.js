@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import AppBarComponent from '../components/AppBarComponent';
 import ProfileMenu from '../components/ProfileMenu';
 import Typography from '@material-ui/core/Typography';
@@ -6,8 +6,11 @@ import SearchBar from '../components/SearchBar';
 import NoteDate from '../components/NoteDate';
 import { makeStyles } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
+import { useAuth } from '../context/AuthContext';
+import { firestore, database, users, datesNotes } from '../firebase';
+import { NotesContext } from '../context/notesContext';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -17,9 +20,58 @@ const useStyles = makeStyles((theme) => ({
 
 const Notes = () => {
   const classes = useStyles();
-  const dates = ['May 19, 2021', 'May 18, 2021', 'May 17, 2021', 'May 16 2021'];
+  const { currentUser } = useAuth();
+  const { notesArr, setNotesArr, uniDatesArr, setUniDatesArr } = useContext(
+    NotesContext
+  );
+  const [datesArr, setDatesArr] = useState([]);
+
+  const getDates = async () => {
+    console.log(currentUser.uid);
+    try {
+      const snapshot = await database.users
+        .doc(currentUser.uid)
+        .collection('notes')
+        .get()
+        .then((querySnapshot) =>
+          querySnapshot.forEach((doc) => {
+            console.log(doc.data().date);
+            // setNotesArr((oldArr) => [...oldArr, doc.data()]);
+            setDatesArr((oldArr) => [...oldArr, doc.data().date]);
+          })
+        );
+      // datesArr.forEach((date) => {
+      //   return database.users
+      //     .doc(currentUser.uid)
+      //     .collection('notes')
+      //     .doc(date)
+      //     .collection(`${date}notes`)
+      //     .get()
+      //     .then((querySnapshot) =>
+      //       querySnapshot.forEach((doc) => {
+      //         console.log(doc.data());
+      //       })
+      //     );
+      // });
+
+      // notesArr.map((n) => setDatesArr((oldArr) => [...oldArr, n.date]));
+      // const uniqueDates = datesArr.filter((v, i, a) => a.indexOf(v) === i);
+      // const dates = uniqueDates.sort(
+      //   (a, b) => new Date(b).valueOf() - new Date(a).valueOf()
+      // );
+      // setUniqueDatesArr(dates);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(async () => {
+    setNotesArr([]);
+    getDates();
+  }, []);
+
   return (
-    <React.Fragment className={classes.root}>
+    <div className={classes.root}>
       <Box display="flex" p={1}>
         <Box flexGrow={1} mt={3}>
           <Typography variant="h5">User's Notes</Typography>
@@ -29,11 +81,15 @@ const Notes = () => {
         </Box>
       </Box>
       <SearchBar />
-      {dates.map((date) => (
+      {/* {dates.map((date) => (
         <NoteDate date={date} />
-      ))}
+      ))} */}
+      {datesArr.length > 0 &&
+        datesArr.map((d) => {
+          return <NoteDate key={d} date={d} />;
+        })}
       <AppBarComponent />
-    </React.Fragment>
+    </div>
   );
 };
 

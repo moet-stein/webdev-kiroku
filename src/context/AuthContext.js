@@ -13,7 +13,7 @@ export function AuthProvider({ children }) {
 
   function signup(email, password, uName) {
     return auth.createUserWithEmailAndPassword(email, password).then((data) => {
-      database.users.add({
+      database.users.doc(data.user.uid).set({
         userName: uName,
         userId: data.user.uid,
         createdAt: database.getCurrentTimestamp(),

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { Avatar, IconButton, makeStyles } from '@material-ui/core';
 import { DeleteOutlined } from '@material-ui/icons';
 import { yellow, green, pink, blue } from '@material-ui/core/colors';
+import { NotesContext } from '../context/notesContext';
 
 const useStyles = makeStyles({
   avatar: {
@@ -24,9 +25,9 @@ const useStyles = makeStyles({
   },
 });
 
-export default function NoteCard({ note }) {
-  const classes = useStyles(note);
-  console.log(note);
+export default function NoteCard() {
+  const classes = useStyles();
+  const { notesArr, setNotesArr } = useContext(NotesContext);
 
   return (
     <div>
@@ -34,7 +35,7 @@ export default function NoteCard({ note }) {
         <CardHeader
           avatar={
             <Avatar className={classes.avatar}>
-              {note.category[0].toUpperCase()}
+              {/* {notesArr.categories[0].toUpperCase()} */}
             </Avatar>
           }
           action={
@@ -42,12 +43,12 @@ export default function NoteCard({ note }) {
               <DeleteOutlined />
             </IconButton>
           }
-          title={note.title}
-          subheader={note.category}
+          title={notesArr.title}
+          // subheader={notesArr.categories}
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary">
-            {note.details}
+            {notesArr.details}
           </Typography>
         </CardContent>
       </Card>
