@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth } from '../context/AuthContext';
 import IconButton from '@material-ui/core/IconButton';
@@ -50,6 +50,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Modal = ({ video }) => {
   const classes = useStyles();
   const { currentUser } = useAuth();
+  const location = useLocation();
+  const [onNoteDetails, setOnNoteDetails] = useState(false);
+  const [videoTitle, setVideoTitle] = useState('');
+  const [videoId, setVideoId] = useState('');
   const [open, setOpen] = React.useState(false);
   const { fetchAgain, setFetchAgain, setLoading } = useContext(
     FetchedVideosContext
@@ -74,6 +78,18 @@ const Modal = ({ video }) => {
     console.log(video);
     setVideoForNewNote(video);
   };
+
+  useEffect(() => {
+    if (location.pathname.includes('notedetail')) {
+      setVideoTitle(video.title);
+      setVideoId(video.url.substring(video.url.length - 11));
+      setOnNoteDetails(true);
+    } else {
+      setVideoTitle(video.snippet.title);
+      setVideoId(video.id.videoId);
+      setOnNoteDetails(false);
+    }
+  }, []);
 
   return (
     <div>
@@ -101,13 +117,13 @@ const Modal = ({ video }) => {
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" className={classes.title}>
-              {video.snippet.title}
+              {videoTitle}
             </Typography>
             {/* <Button autoFocus color="inherit" onClick={handleClose}>
               save
             </Button> */}
-            {currentUser && (
-              <Link to={`/newnote/${video.id.videoId}`}>
+            {currentUser && !onNoteDetails && (
+              <Link to={`/newnote/${videoId}`}>
                 <IconButton aria-label="settings" onClick={storeVideoContext}>
                   <NoteAddIcon />
                 </IconButton>
@@ -119,7 +135,7 @@ const Modal = ({ video }) => {
           <CardMedia
             className={classes.videoMedia}
             component="iframe"
-            src={`https://www.youtube.com/embed/${video.id.videoId}`}
+            src={`https://www.youtube.com/embed/${videoId}`}
             autoPlay
           />
         </Card>

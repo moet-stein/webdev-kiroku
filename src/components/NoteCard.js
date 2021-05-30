@@ -64,18 +64,6 @@ export default function NoteCard({ note }) {
           element.ref.delete();
         });
       });
-
-    // const noNeedNotes = await uesrDatesNotesRef
-    //   .collection('tempnote')
-    //   .doc()
-    //   .delte()
-    //   .then(() => console.log('deleted'))
-    //   .catch((e) => console.log('error', e));
-    // noNeedNotes
-    //   .get()
-    //   .then((querySnapshot) =>
-    //     querySnapshot.forEach((doc) => doc.ref.delete())
-    //   );
     const store = await uesrDatesNotesRef
       .collection('tempnote')
       .doc(note.noteId)
@@ -120,6 +108,7 @@ export default function NoteCard({ note }) {
                     label={category}
                     variant="outlined"
                     color="primary"
+                    key={category}
                   />
                 );
               })}

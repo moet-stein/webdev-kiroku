@@ -146,8 +146,8 @@ const NoteDate = ({ date }) => {
             notesArr.map((note) => {
               if (note.date === date) {
                 return (
-                  <div item key={note.id}>
-                    <NoteCard key={note.id} note={note} />
+                  <div item key={note.noteId}>
+                    <NoteCard key={note.noteId} note={note} />
                   </div>
                 );
               }

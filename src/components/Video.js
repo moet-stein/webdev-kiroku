@@ -142,7 +142,7 @@ const Video = ({ video, channelIcon }) => {
         <CardMedia
           className={classes.media}
           image={video.snippet.thumbnails.high.url}
-          title="Paella dish"
+          title={videoTitle}
         />
         <div className={classes.overlay}>
           <Modal video={video} />
