@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Card from '@material-ui/core/Card';
 import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
@@ -55,8 +55,8 @@ export default function NoteCard({ note }) {
   const { currentUser } = useAuth();
   const uesrDatesNotesRef = database.users.doc(currentUser.uid);
 
-  const storeNote = async () => {
-    const deleteTempnote = await uesrDatesNotesRef
+  useEffect(() => {
+    uesrDatesNotesRef
       .collection('tempnote')
       .get()
       .then((res) => {
@@ -64,10 +64,18 @@ export default function NoteCard({ note }) {
           element.ref.delete();
         });
       });
-    const store = await uesrDatesNotesRef
-      .collection('tempnote')
-      .doc(note.noteId)
-      .set({ note });
+  }, []);
+
+  const storeNote = () => {
+    // const deleteTempnote = await uesrDatesNotesRef
+    //   .collection('tempnote')
+    //   .get()
+    //   .then((res) => {
+    //     res.forEach((element) => {
+    //       element.ref.delete();
+    //     });
+    //   });
+    uesrDatesNotesRef.collection('tempnote').doc(note.noteId).set(note);
   };
 
   const details =

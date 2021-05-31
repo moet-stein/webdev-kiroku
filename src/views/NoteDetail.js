@@ -46,28 +46,31 @@ const useStyles = makeStyles({
 export default function NoteDetail(props) {
   const classes = useStyles();
   const { notesArr, setNotesArr } = useContext(NotesContext);
+  const [readyToShow, setReadyToShow] = useState(false);
   const { id } = useParams();
   const [noteForDetail, setNoteForDetail] = useState([]);
   const { currentUser } = useAuth();
   const uesrDatesNotesRef = database.users.doc(currentUser.uid);
 
   //    get note data from firestore
-  useEffect(() => {
-    uesrDatesNotesRef
+  useEffect(async () => {
+    const getNote = await uesrDatesNotesRef
       .collection('tempnote')
       .doc(id)
       .get()
       .then((doc) => {
-        setNoteForDetail(doc.data().note);
-        console.log(doc.data().note);
-      });
+        setNoteForDetail(doc.data());
+        console.log(doc.data());
+      })
+      .catch((e) => console.log('error: ', e));
+    const show = await setReadyToShow(true);
   }, []);
 
-  console.log(notesArr);
+  console.log(readyToShow);
   console.log(noteForDetail);
   return (
     <div>
-      {noteForDetail && (
+      {readyToShow ? (
         <div>
           <Box p={1} display="flex">
             <Box flexGrow={1}>
@@ -95,10 +98,15 @@ export default function NoteDetail(props) {
                 </div>
               )}
               <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {noteForDetail.title}
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  color="textSecondary"
+                  component="h2"
+                >
+                  {noteForDetail.date}
                 </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
+                <Typography variant="body1" component="p">
                   {noteForDetail.details}
                 </Typography>
               </CardContent>
@@ -130,6 +138,8 @@ export default function NoteDetail(props) {
           </Card>
           <AppBarComponent />
         </div>
+      ) : (
+        <Typography>Loading...</Typography>
       )}
     </div>
   );
