@@ -21,11 +21,14 @@ const useStyles = makeStyles(() => ({
 const Notes = () => {
   const classes = useStyles();
   const { currentUser } = useAuth();
+  const [userName, setUserName] = useState('');
   const { notesArr, setNotesArr } = useContext(NotesContext);
   const [datesArr, setDatesArr] = useState([]);
 
   const getDates = async () => {
     console.log(currentUser.uid);
+    setNotesArr([]);
+    setDatesArr([]);
     try {
       const snapshot = await database.users
         .doc(currentUser.uid)
@@ -37,32 +40,45 @@ const Notes = () => {
             // setNotesArr((oldArr) => [...oldArr, doc.data().date]);
             setDatesArr((oldArr) => [...oldArr, doc.data().date]);
           })
-        );
+        )
+        .then(() => {
+          console.log(datesArr);
+          setDatesArr(datesArr.sort((a, b) => Date.parse(b) - Date.parse(a)));
+        });
     } catch (err) {
       console.log(err);
     }
   };
 
-  useEffect(async () => {
-    setNotesArr([]);
+  useEffect(() => {
     getDates();
+    database.users
+      .doc(currentUser.uid)
+      .get()
+      .then((doc) => {
+        setUserName(doc.data().userName);
+      });
   }, []);
 
   return (
     <div className={classes.root}>
       <Box display="flex" p={1}>
         <Box flexGrow={1} mt={3}>
-          <Typography variant="h5">User's Notes</Typography>
+          <Typography variant="h5" color="textSecondary">
+            {userName}'s Notes
+          </Typography>
         </Box>
         <Box p={1}>
           <ProfileMenu />
         </Box>
       </Box>
-      <SearchBar />
-      {datesArr.length > 0 &&
+      {datesArr.length > 0 ? (
         datesArr.map((d) => {
           return <NoteDate key={d} date={d} />;
-        })}
+        })
+      ) : (
+        <Typography>No notes yet</Typography>
+      )}
       <AppBarComponent />
     </div>
   );

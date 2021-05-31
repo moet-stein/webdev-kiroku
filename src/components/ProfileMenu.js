@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core';
 import { useAuth } from '../context/AuthContext';
+import { database } from '../firebase';
 import {
   BrowserRouter as Router,
   Switch,
@@ -20,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   avatar: {
-    color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[500],
+    color: '#fff',
+    backgroundColor: ' #008B8B',
     marginRight: theme.spacing(2),
     width: theme.spacing(3),
     height: theme.spacing(3),
@@ -30,8 +32,9 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileMenu = () => {
   const classes = useStyles();
+  const { currentUser, logout } = useAuth();
+  const [userName, setUserName] = useState('');
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const { logout } = useAuth();
   const [error, setError] = useState('');
   const history = useHistory();
 
@@ -53,6 +56,16 @@ const ProfileMenu = () => {
     }
   };
 
+  useEffect(() => {
+    database.users
+      .doc(currentUser.uid)
+      .get()
+      .then((doc) => {
+        setUserName(doc.data().userName);
+        console.log(doc.data().userName);
+      });
+  }, []);
+
   return (
     <div className={classes.marginPositionRight}>
       <Button
@@ -60,8 +73,8 @@ const ProfileMenu = () => {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <Avatar className={classes.avatar}>N</Avatar>
-        Profile
+        <Avatar className={classes.avatar}>{userName[0]}</Avatar>
+        <Typography> Hi, {userName}</Typography>
       </Button>
       <Menu
         id="simple-menu"
@@ -70,8 +83,13 @@ const ProfileMenu = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <Link
+          to="/update-profile"
+          style={{ textDecoration: 'none' }}
+          color="#000"
+        >
+          <MenuItem>Update Account</MenuItem>
+        </Link>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>

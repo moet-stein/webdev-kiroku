@@ -87,10 +87,10 @@ export default function Signup() {
         passwordRef.current.value,
         userNameRef.current.value
       );
-      history.push('/user');
+      history.push('/notes');
     } catch (e) {
       console.log(e);
-      setError(`Failed to create an account`);
+      setError(`${e}, Failed to create an account`);
     }
     setLoading(false);
   };

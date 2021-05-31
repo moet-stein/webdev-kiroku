@@ -77,7 +77,7 @@ export default function Login() {
       setError(``);
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      history.push('/user');
+      history.push('/notes');
     } catch (e) {
       console.log(e);
       setError(`Failed to log in`);

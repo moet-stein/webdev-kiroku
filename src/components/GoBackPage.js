@@ -17,9 +17,6 @@ const GoBackPage = () => {
   const classes = useStyles();
 
   const history = useHistory();
-  // const { fetchAgain, setFetchAgain, setLoading } = useContext(
-  //   FetchedVideosContext
-  // );
 
   const goBack = () => {
     history.goBack();
