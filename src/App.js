@@ -1,4 +1,5 @@
 import Search from './views/Search';
+import Home from './views/Home';
 import Profile from './views/Profile';
 import UpdateProfile from './views/UpdateProfile';
 import Signup from './views/Signup';
@@ -50,6 +51,8 @@ function App() {
                         path="/update-profile"
                         component={UpdateProfile}
                       />
+                      <Route exact path="/" children={<Home />} />
+
                       {/* Authentication */}
                       <Route exact path="/signup" children={<Signup />} />
                       <Route exact path="/login" children={<Login />} />

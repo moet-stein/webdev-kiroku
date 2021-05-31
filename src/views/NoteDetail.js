@@ -72,21 +72,8 @@ export default function NoteDetail(props) {
         .then(() => setReadyToShow(true))
         .catch((e) => console.log('error: ', e));
     }
-    console.log(notesArr, notesArr.length > 0);
-    // const getNote = await uesrDatesNotesRef
-    //   .collection('tempnote')
-    //   .doc(id)
-    //   .get()
-    //   .then((doc) => {
-    //     setNoteForDetail(doc.data());
-    //     console.log(doc.data());
-    //   })
-    //   .catch((e) => console.log('error: ', e));
-    // const show = await setReadyToShow(true);
   }, []);
 
-  console.log(readyToShow);
-  console.log(noteForDetail);
   return (
     <div>
       {readyToShow ? (

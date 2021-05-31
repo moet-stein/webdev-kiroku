@@ -32,71 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NoteDate = ({ date }) => {
   const { currentUser } = useAuth();
-  // const notes = [
-  //   {
-  //     title: "Yoshi's birthday bash",
-  //     details:
-  //       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-  //     category: 'reminders',
-  //     id: 1,
-  //     date: 'May 19, 2021',
-  //   },
-  //   {
-  //     title: 'Complete my ninja training',
-  //     details: 'Lorem Ipsum is simply dummy ',
-  //     category: 'work',
-  //     id: 2,
-  //     date: 'May 17, 2021',
-  //   },
-  //   {
-  //     title: 'Order a pizza!',
-  //     details:
-  //       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-  //     category: 'todos',
-  //     id: 3,
-  //     date: 'May 17, 2021',
-  //   },
-  //   {
-  //     title: "Mario's Birthday",
-  //     details: 'Buy Presents for Mario',
-  //     category: 'todos',
-  //     id: 4,
-  //     date: 'May 16, 2021',
-  //   },
-  //   {
-  //     title: "Yoshi's birthday bash",
-  //     details:
-  //       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-  //     category: 'reminders',
-  //     id: 1,
-  //     date: 'May 19, 2021',
-  //   },
-  //   {
-  //     title: 'Complete my ninja training',
-  //     details: 'Lorem Ipsum is simply dummy ',
-  //     category: 'work',
-  //     id: 2,
-  //     date: 'May 17, 2021',
-  //   },
-  //   {
-  //     title: 'Order a pizza!',
-  //     details:
-  //       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  //     category: 'todos',
-  //     id: 3,
-  //     date: 'May 17, 2021',
-  //   },
-  //   {
-  //     title: "Mario's Birthday",
-  //     details: 'Buy Presents for Mario',
-  //     category: 'todos',
-  //     id: 4,
-  //     date: 'May 16, 2021',
-  //   },
-  // ];
   const { notesArr, setNotesArr } = useContext(NotesContext);
-
-  // console.log(notes.map((note) => note.date === date));
   const classes = useStyles();
 
   useEffect(() => {
@@ -122,7 +58,6 @@ const NoteDate = ({ date }) => {
 
   return (
     <div className={classes.root}>
-      {/* DATES FROM FIREBASE, LOOPING MAPPING FOR DIVIDER */}
       <List>
         <ListItem>
           <ListItemText
@@ -154,8 +89,6 @@ const NoteDate = ({ date }) => {
             })}
         </Masonry>
       </div>
-      {/* Ater DATES, THHERE WILL BE NOTES WITH THE SAME DATE. LOOPING THE NOTES */}
-      {/* GIVING THE DATA AS PROPS  */}
     </div>
   );
 };

@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
 const FavoriteChannels = () => {
   const classes = useStyles();
   const { currentUser } = useAuth();
-  // const [favChans, setFavChans] = useState([]);
   const { favChansArr, setFavChansArr } = useContext(FavChansContext);
 
   useEffect(() => {
@@ -36,13 +35,7 @@ const FavoriteChannels = () => {
           setFavChansArr((oldArr) => [...oldArr, doc.data()]);
         })
       );
-    // .then(() => {
-    //   setFavChansArr(favChans);
-    //   console.log(favChansArr);
-    // });
   }, []);
-  // console.log(favChansArr);
-  // need to show favchannels that have the user id which matches to the current userid
 
   return (
     <React.Fragment>

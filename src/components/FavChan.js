@@ -7,6 +7,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
   inline: {
@@ -24,30 +25,35 @@ const FavChan = ({ channel }) => {
   return (
     <React.Fragment>
       <Divider variant="inset" component="li" />
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar alt={channel.channelName} src={channel.avatar} />
-        </ListItemAvatar>
-        <ListItemText
-          primary={channel.channelName}
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                Total Videos: {channel.totalVideos}
-              </Typography>
-              <br />
-              {description}
-              <br />
-            </React.Fragment>
-          }
-        />
-        <DeleteChannel channel={channel} />
-      </ListItem>
+      <Link
+        to={`/channel/${channel.channelId}`}
+        style={{ textDecoration: 'none' }}
+      >
+        <ListItem alignItems="flex-start">
+          <ListItemAvatar>
+            <Avatar alt={channel.channelName} src={channel.avatar} />
+          </ListItemAvatar>
+          <ListItemText
+            primary={channel.channelName}
+            secondary={
+              <React.Fragment>
+                <Typography
+                  component="span"
+                  variant="body2"
+                  className={classes.inline}
+                  color="textPrimary"
+                >
+                  Total Videos: {channel.totalVideos}
+                </Typography>
+                <br />
+                {description}
+                <br />
+              </React.Fragment>
+            }
+          />
+          <DeleteChannel channel={channel} />
+        </ListItem>
+      </Link>
     </React.Fragment>
   );
 };

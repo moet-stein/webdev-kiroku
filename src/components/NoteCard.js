@@ -2,12 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import Card from '@material-ui/core/Card';
 import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import { Avatar, IconButton, makeStyles } from '@material-ui/core';
-import { DeleteOutlined } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/core';
 import { yellow, green, pink, blue, lightBlue } from '@material-ui/core/colors';
 import { NotesContext } from '../context/notesContext';
 import DeleteNote from './DeleteNote';
@@ -64,20 +62,7 @@ export default function NoteCard({ note }) {
           element.ref.delete();
         });
       });
-    console.log(notesArr);
   }, []);
-
-  // const storeNote = () => {
-  //   // const deleteTempnote = await uesrDatesNotesRef
-  //   //   .collection('tempnote')
-  //   //   .get()
-  //   //   .then((res) => {
-  //   //     res.forEach((element) => {
-  //   //       element.ref.delete();
-  //   //     });
-  //   //   });
-  //   uesrDatesNotesRef.collection('tempnote').doc(note.noteId).set(note);
-  // };
 
   const details =
     note.details.length > 100
