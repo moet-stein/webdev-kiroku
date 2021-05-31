@@ -47,23 +47,42 @@ export default function NoteDetail(props) {
   const classes = useStyles();
   const { notesArr, setNotesArr } = useContext(NotesContext);
   const [readyToShow, setReadyToShow] = useState(false);
-  const { id } = useParams();
-  const [noteForDetail, setNoteForDetail] = useState([]);
+  const { date, id } = useParams();
+  const [noteForDetail, setNoteForDetail] = useState();
   const { currentUser } = useAuth();
   const uesrDatesNotesRef = database.users.doc(currentUser.uid);
 
   //    get note data from firestore
   useEffect(async () => {
-    const getNote = await uesrDatesNotesRef
-      .collection('tempnote')
-      .doc(id)
-      .get()
-      .then((doc) => {
-        setNoteForDetail(doc.data());
-        console.log(doc.data());
-      })
-      .catch((e) => console.log('error: ', e));
-    const show = await setReadyToShow(true);
+    if (notesArr.length > 0) {
+      const targetNote = notesArr.find((n) => n.noteId === id);
+      setNoteForDetail(targetNote);
+      setReadyToShow(true);
+    } else {
+      uesrDatesNotesRef
+        .collection('notes')
+        .doc(date)
+        .collection(`${date}notes`)
+        .doc(id)
+        .get()
+        .then((doc) => {
+          setNoteForDetail(doc.data());
+          console.log(doc.data());
+        })
+        .then(() => setReadyToShow(true))
+        .catch((e) => console.log('error: ', e));
+    }
+    console.log(notesArr, notesArr.length > 0);
+    // const getNote = await uesrDatesNotesRef
+    //   .collection('tempnote')
+    //   .doc(id)
+    //   .get()
+    //   .then((doc) => {
+    //     setNoteForDetail(doc.data());
+    //     console.log(doc.data());
+    //   })
+    //   .catch((e) => console.log('error: ', e));
+    // const show = await setReadyToShow(true);
   }, []);
 
   console.log(readyToShow);

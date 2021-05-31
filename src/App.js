@@ -77,7 +77,7 @@ function App() {
 
                         <PrivateRoute
                           exact
-                          path="/notedetail/:id"
+                          path="/notedetail/:date/:id"
                           component={NoteDetail}
                         />
 

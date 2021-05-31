@@ -64,19 +64,20 @@ export default function NoteCard({ note }) {
           element.ref.delete();
         });
       });
+    console.log(notesArr);
   }, []);
 
-  const storeNote = () => {
-    // const deleteTempnote = await uesrDatesNotesRef
-    //   .collection('tempnote')
-    //   .get()
-    //   .then((res) => {
-    //     res.forEach((element) => {
-    //       element.ref.delete();
-    //     });
-    //   });
-    uesrDatesNotesRef.collection('tempnote').doc(note.noteId).set(note);
-  };
+  // const storeNote = () => {
+  //   // const deleteTempnote = await uesrDatesNotesRef
+  //   //   .collection('tempnote')
+  //   //   .get()
+  //   //   .then((res) => {
+  //   //     res.forEach((element) => {
+  //   //       element.ref.delete();
+  //   //     });
+  //   //   });
+  //   uesrDatesNotesRef.collection('tempnote').doc(note.noteId).set(note);
+  // };
 
   const details =
     note.details.length > 100
@@ -86,10 +87,10 @@ export default function NoteCard({ note }) {
   return (
     <div>
       <Link
-        to={`/notedetail/${note.noteId}`}
+        to={`/notedetail/${note.date}/${note.noteId}`}
         style={{ textDecoration: 'none' }}
       >
-        <Card className={classes.card} elevation={1} onClick={storeNote}>
+        <Card className={classes.card} elevation={1}>
           <Box mt={2}>
             <Typography variant="h6" className={classes.title}>
               {note.title}

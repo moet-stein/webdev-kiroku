@@ -34,6 +34,7 @@ const Notes = () => {
         .then((querySnapshot) =>
           querySnapshot.forEach((doc) => {
             console.log(doc.data().date);
+            // setNotesArr((oldArr) => [...oldArr, doc.data().date]);
             setDatesArr((oldArr) => [...oldArr, doc.data().date]);
           })
         );
