@@ -68,15 +68,8 @@ const SearchBar = () => {
     if (e.key === 'Enter') {
       setSearchInput(e.target.value);
       setFetchAgain(true);
-      // const timeOutId = setTimeout(() => setSearchInput(query), 1000);
-      // return () => clearTimeout(timeOutId);
     }
   };
-
-  // useEffect(() => {
-  //   const timeOutId = setTimeout(() => setSearchInput(query), 1000);
-  //   return () => clearTimeout(timeOutId);
-  // }, [searchInput]);
 
   return (
     <div className={classes.grow}>

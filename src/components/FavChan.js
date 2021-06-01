@@ -16,7 +16,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 const FavChan = ({ channel }) => {
-  console.log(channel);
   const classes = useStyles();
   const description =
     channel.description.length > 200
@@ -51,9 +50,9 @@ const FavChan = ({ channel }) => {
               </React.Fragment>
             }
           />
-          <DeleteChannel channel={channel} />
         </ListItem>
       </Link>
+      <DeleteChannel channel={channel} />
     </React.Fragment>
   );
 };

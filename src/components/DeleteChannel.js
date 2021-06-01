@@ -1,14 +1,13 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { makeStyles } from '@material-ui/core';
 import { useAuth } from '../context/AuthContext';
-import { auth, database, users, favChannels } from '../firebase';
+import { database } from '../firebase';
 import { FavChansContext } from '../context/favChansContext';
-import { BrowserRouter as useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
   marginTop: {
-    marginTop: '20px',
+    marginRight: '25px',
     display: 'flex',
     justifyContent: 'flex-end',
     alignSelf: 'flex-end',
@@ -33,7 +32,6 @@ const DeleteChannel = ({ channel }) => {
           favChansArr.filter((ch) => ch.channelId !== channel.channelId)
         );
         console.log('successfully deleted it');
-        console.log(favChansArr);
       });
   };
   return (

@@ -13,7 +13,6 @@ const Favorite = ({ channel }) => {
   const favChanId = channel.id + currentUser.uid;
 
   useEffect(async () => {
-    // I want to show red heart if there is a channel that has the id of the channel id + userid in database
     const docRef = database.favChannels.doc(favChanId);
     docRef
       .get()

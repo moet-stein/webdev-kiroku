@@ -1,8 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router';
-// import { FetchedVideosContext } from '../context/fetchedVideosContext';
 const useStyles = makeStyles((theme) => ({
   marginFlex: {
     marginTop: theme.spacing(2),

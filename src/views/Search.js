@@ -101,7 +101,11 @@ const Search = () => {
 
       {!loading ? (
         fetchedVideos.map((video) => {
-          return <Video key={video.etag} video={video} />;
+          return (
+            <Box mb={5}>
+              <Video key={video.etag} video={video} />
+            </Box>
+          );
         })
       ) : (
         <Typography>Loading</Typography>

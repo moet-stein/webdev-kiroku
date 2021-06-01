@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: '56.25%', // 16:9
+    paddingTop: '56.25%',
   },
   overlay: {
     position: 'absolute',
@@ -43,9 +43,6 @@ const useStyles = makeStyles((theme) => ({
     left: '35%',
     color: 'black',
   },
-  //   avatar: {
-  //     backgroundColor: red[500],
-  //   },
 }));
 
 const Video = ({ video, channelIcon }) => {

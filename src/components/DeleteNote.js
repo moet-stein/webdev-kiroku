@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { makeStyles } from '@material-ui/core';
 import { useAuth } from '../context/AuthContext';

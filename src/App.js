@@ -1,6 +1,5 @@
 import Search from './views/Search';
 import Home from './views/Home';
-import Profile from './views/Profile';
 import UpdateProfile from './views/UpdateProfile';
 import Signup from './views/Signup';
 import Login from './views/Login';
@@ -45,7 +44,7 @@ function App() {
                     <Switch>
                       {/* PRivate route is only for users who are logged in */}
                       {/* Peofile */}
-                      <PrivateRoute exact path="/user" component={Profile} />
+
                       <PrivateRoute
                         exact
                         path="/update-profile"

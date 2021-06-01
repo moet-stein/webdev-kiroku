@@ -35,13 +35,16 @@ const Notes = () => {
   const { currentUser } = useAuth();
   const [loading, setLoading] = useState(true);
   const [userName, setUserName] = useState('');
-  const { notesArr, setNotesArr } = useContext(NotesContext);
+  const { notesArr, setNotesArr, setFilteredNotesArr } = useContext(
+    NotesContext
+  );
   const [datesArr, setDatesArr] = useState([]);
 
   const getDates = async () => {
     console.log(currentUser.uid);
     setNotesArr([]);
     setDatesArr([]);
+    setFilteredNotesArr([]);
     try {
       const snapshot = await database.users
         .doc(currentUser.uid)
@@ -94,12 +97,12 @@ const Notes = () => {
         </Box>
       )}
       {!loading && datesArr.length > 0 && (
-        <div>
+        <Box mb={5}>
           <FilterNotes />
           {datesArr.map((d) => (
             <NoteDate key={d} date={d} />
           ))}
-        </div>
+        </Box>
       )}
       {!loading && datesArr.length === 0 && (
         <Box>

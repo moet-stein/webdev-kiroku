@@ -10,7 +10,7 @@ import ProfileMenu from '../components/ProfileMenu';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import { useAuth } from '../context/AuthContext';
-import { auth, database, users, favChannels } from '../firebase';
+import { database } from '../firebase';
 import { FavChansContext } from '../context/favChansContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,14 +36,12 @@ const FavoriteChannels = () => {
   const { favChansArr, setFavChansArr } = useContext(FavChansContext);
 
   useEffect(() => {
-    // setFavChans([]);
     setFavChansArr([]);
     database.favChannels
       .where('userId', '==', currentUser.uid)
       .get()
       .then((querySnapshot) =>
         querySnapshot.forEach((doc) => {
-          // setFavChans((oldArr) => [...oldArr, doc.data()]);
           setFavChansArr((oldArr) => [...oldArr, doc.data()]);
         })
       )
@@ -67,13 +65,15 @@ const FavoriteChannels = () => {
           <img src={Loading} />
         </Box>
       )}
-      <List className={classes.root}>
-        {!loading &&
-          favChansArr &&
-          favChansArr.map((ch) => {
-            return <FavChan key={ch.channelId} channel={ch} />;
-          })}
-      </List>
+      <Box mb={5}>
+        <List className={classes.root}>
+          {!loading &&
+            favChansArr &&
+            favChansArr.map((ch) => {
+              return <FavChan key={ch.channelId} channel={ch} />;
+            })}
+        </List>
+      </Box>
       {!loading && favChansArr.length === 0 && (
         <Box>
           <Box mt={7}>

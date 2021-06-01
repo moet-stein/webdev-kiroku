@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import AppBarComponent from '../components/AppBarComponent';
 import ProfileMenu from '../components/ProfileMenu';
-import GoBackPage from '../components/GoBackPage';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { Box, makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import { useHistory, useParams } from 'react-router';
+import { useHistory } from 'react-router';
 import { green } from '@material-ui/core/colors';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import List from '@material-ui/core/List';
@@ -22,10 +21,9 @@ import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import { database, notes } from '../firebase';
+import { database } from '../firebase';
 import { useAuth } from '../context/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
@@ -265,16 +263,17 @@ const NewNoteWithoutVideo = () => {
               </List>
             </div>
           </div>
-
-          <Button
-            className={classes.marginWidth70}
-            type="submit"
-            color="secondary"
-            variant="contained"
-            endIcon={<ArrowForwardIcon />}
-          >
-            Submit
-          </Button>
+          <Box mb={7}>
+            <Button
+              className={classes.marginWidth70}
+              type="submit"
+              color="secondary"
+              variant="contained"
+              endIcon={<ArrowForwardIcon />}
+            >
+              Submit
+            </Button>
+          </Box>
         </form>
       </Container>
       <AppBarComponent />

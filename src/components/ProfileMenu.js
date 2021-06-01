@@ -4,7 +4,6 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core';
 import { useAuth } from '../context/AuthContext';
 import { database } from '../firebase';

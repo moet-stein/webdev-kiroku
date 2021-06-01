@@ -79,7 +79,7 @@ const NoteDate = ({ date }) => {
       </List>
       <div className={classes.marginSide}>
         <Masonry
-          breakpointCols={breakpoints}
+          breakpointCols={+breakpoints}
           className={moduleClasses.myMasonryGrid}
           columnClassName={moduleClasses.myMasonryGridColumn}
         >

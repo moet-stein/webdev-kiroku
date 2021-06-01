@@ -15,9 +15,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Avatar from '@material-ui/core/Avatar';
-// import IconButton from '@material-ui/core/IconButton';
-// import FavoriteIcon from '@material-ui/icons/Favorite';
-// import { grey, red } from '@material-ui/core/colors';
 import axios from 'axios';
 import {
   BrowserRouter as Router,
@@ -26,7 +23,7 @@ import {
   Link,
   useParams,
 } from 'react-router-dom';
-import { Box } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
 import ProfileMenu from '../components/ProfileMenu';
 
 const useStyles = makeStyles((theme) => ({
@@ -148,93 +145,83 @@ const Channel = (props) => {
         channel.length > 0 &&
         channel.map((c) => {
           return (
-            <div key={c.etag} className={classes.flex}>
-              <Card className={classes.firstRoot}>
-                {currentUser && (
-                  <Favorite channel={c} />
-                  /* <IconButton
-                    onClick={toggleFavorite}
-                    aria-label="add to favorites"
-                  >
-                    <FavoriteIcon
-                      fontSize="large"
-                      style={{ color: heartColor }}
-                    />
-                  </IconButton> */
-                )}
-                <Avatar
-                  className={classes.large}
-                  src={c.snippet.thumbnails.high.url}
-                  title={c.snippet.title}
-                />
-
-                <div className={classes.details}>
-                  <CardContent className={classes.content}>
-                    <Typography component="h5" variant="h5">
-                      {c.snippet.title}
-                    </Typography>
-                  </CardContent>
-                </div>
-              </Card>
-              <Card className={classes.root}>
-                <CardActionArea>
-                  <CardMedia
-                    className={classes.media}
-                    image={
-                      c.brandingSettings.image
-                        ? c.brandingSettings.image.bannerExternalUrl
-                        : ''
-                    }
-                    title="Contemplative Reptile"
+            <Box mb={8}>
+              <div key={c.etag} className={classes.flex}>
+                <Card className={classes.firstRoot}>
+                  {currentUser && <Favorite channel={c} />}
+                  <Avatar
+                    className={classes.large}
+                    src={c.snippet.thumbnails.high.url}
+                    title={c.snippet.title}
                   />
-                  <CardContent className={classes.marginEverything}>
-                    {/* <Typography gutterBottom variant="h5" component="h2">
-                      Lizard
-                    </Typography> */}
-                    <div className={classes.displayFlex}>
-                      <Paper className={classes.marginCenter}>
-                        <Typography className={classes.marginEverything}>
-                          Subscribers: <br />
-                          {numberConverter(c.statistics.subscriberCount)}
-                        </Typography>
-                      </Paper>
-                      <Paper className={classes.marginCenter}>
-                        <Typography className={classes.marginEverything}>
-                          Total Videos: <br />
-                          {numberConverter(c.statistics.videoCount)}
-                        </Typography>
-                      </Paper>
-                      <Paper className={classes.marginCenter}>
-                        <Typography className={classes.marginEverything}>
-                          Total Views: <br />
-                          {numberConverter(c.statistics.viewCount)}
-                        </Typography>
-                      </Paper>
-                    </div>
-                    <Paper
-                      color="textSecondary"
-                      className={classes.widthCard}
-                      elevation={0}
-                    >
-                      <Typography align="left">
-                        {htmlEntities(c.snippet.description)}
+
+                  <div className={classes.details}>
+                    <CardContent className={classes.content}>
+                      <Typography component="h5" variant="h5">
+                        {c.snippet.title}
                       </Typography>
-                    </Paper>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Button size="small" color="primary" onClick={showVideos}>
-                    {show ? 'Hide Videos' : 'Show Videos'}
-                  </Button>
-                </CardActions>
-              </Card>
-              {show && (
-                <ShowVideo
-                  channelId={c.id}
-                  channelIcon={c.snippet.thumbnails.high.url}
-                />
-              )}
-            </div>
+                    </CardContent>
+                  </div>
+                </Card>
+                <Card className={classes.root}>
+                  <CardActionArea>
+                    <CardMedia
+                      className={classes.media}
+                      image={
+                        c.brandingSettings.image
+                          ? c.brandingSettings.image.bannerExternalUrl
+                          : ''
+                      }
+                      title="Contemplative Reptile"
+                    />
+                    <CardContent className={classes.marginEverything}>
+                      <div className={classes.displayFlex}>
+                        <Paper className={classes.marginCenter}>
+                          <Typography className={classes.marginEverything}>
+                            Subscribers: <br />
+                            {numberConverter(c.statistics.subscriberCount)}
+                          </Typography>
+                        </Paper>
+                        <Paper className={classes.marginCenter}>
+                          <Typography className={classes.marginEverything}>
+                            Total Videos: <br />
+                            {numberConverter(c.statistics.videoCount)}
+                          </Typography>
+                        </Paper>
+                        <Paper className={classes.marginCenter}>
+                          <Typography className={classes.marginEverything}>
+                            Total Views: <br />
+                            {numberConverter(c.statistics.viewCount)}
+                          </Typography>
+                        </Paper>
+                      </div>
+                      <Paper
+                        color="textSecondary"
+                        className={classes.widthCard}
+                        elevation={0}
+                      >
+                        <Typography align="left">
+                          {htmlEntities(c.snippet.description)}
+                        </Typography>
+                      </Paper>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="small" color="primary" onClick={showVideos}>
+                      {show ? 'Hide Videos' : 'Show Videos'}
+                    </Button>
+                  </CardActions>
+                </Card>
+                {show && (
+                  <Box mb={5}>
+                    <ShowVideo
+                      channelId={c.id}
+                      channelIcon={c.snippet.thumbnails.high.url}
+                    />
+                  </Box>
+                )}
+              </div>
+            </Box>
           );
         })}
       {currentUser ? <AppBarComponent /> : <VisitorAppBar />}

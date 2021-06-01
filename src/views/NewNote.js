@@ -297,16 +297,17 @@ const NewNote = () => {
               </List>
             </div>
           </div>
-
-          <Button
-            className={classes.marginWidth70}
-            type="submit"
-            color="secondary"
-            variant="contained"
-            endIcon={<ArrowForwardIcon />}
-          >
-            Submit
-          </Button>
+          <Box mb={7}>
+            <Button
+              className={classes.marginWidth70}
+              type="submit"
+              color="secondary"
+              variant="contained"
+              endIcon={<ArrowForwardIcon />}
+            >
+              Submit
+            </Button>
+          </Box>
         </form>
       </Container>
       <AppBarComponent />
