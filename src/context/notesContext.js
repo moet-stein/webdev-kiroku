@@ -5,6 +5,7 @@ const initnotesContext = {
   notesArr: [],
   uniDatesArr: [],
   filteredNotesArr: [],
+  datesArr: [],
 };
 // 3. create context
 export const NotesContext = createContext(initnotesContext);
@@ -16,6 +17,7 @@ export const NotesContextProvider = ({ children }) => {
   const [filteredNotesArr, setFilteredNotesArr] = useState(
     initnotesContext.filteredNotesArr
   );
+  const [datesArr, setDatesArr] = useState(initnotesContext.datesArr);
 
   return (
     <NotesContext.Provider
@@ -26,6 +28,8 @@ export const NotesContextProvider = ({ children }) => {
         setUniDatesArr,
         filteredNotesArr,
         setFilteredNotesArr,
+        datesArr,
+        setDatesArr,
       }}
     >
       {children}

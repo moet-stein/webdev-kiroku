@@ -35,10 +35,14 @@ const Notes = () => {
   const { currentUser } = useAuth();
   const [loading, setLoading] = useState(true);
   const [userName, setUserName] = useState('');
-  const { notesArr, setNotesArr, setFilteredNotesArr } = useContext(
-    NotesContext
-  );
-  const [datesArr, setDatesArr] = useState([]);
+  const {
+    notesArr,
+    setNotesArr,
+    setFilteredNotesArr,
+    datesArr,
+    setDatesArr,
+  } = useContext(NotesContext);
+  // const [datesArr, setDatesArr] = useState([]);
 
   const getDates = async () => {
     console.log(currentUser.uid);
@@ -46,6 +50,11 @@ const Notes = () => {
     setDatesArr([]);
     setFilteredNotesArr([]);
     try {
+      // const deleteEmptyDates = await database.users
+      //   .doc(currentUser.uid)
+      //   .collection('notes')
+      //   .get()
+      // .then((query))
       const snapshot = await database.users
         .doc(currentUser.uid)
         .collection('notes')

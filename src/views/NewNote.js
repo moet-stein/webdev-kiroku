@@ -98,6 +98,7 @@ const NewNote = () => {
   const addCategoryInput = () => {
     setCategoryInput(categoryInput + 1);
     setCategoriesArr([...categoriesArr, category]);
+    setCategory('');
   };
 
   const handleInputChange = (event) => {
@@ -254,6 +255,7 @@ const NewNote = () => {
             <div className={classes.flexSpaceAround}>
               <TextField
                 onChange={handleInputChange}
+                value={category}
                 className={classes.marginWidth70}
                 label="category"
                 variant="outlined"

@@ -20,7 +20,14 @@ const useStyles = makeStyles(() => ({
 const DeleteNote = ({ note }) => {
   const classes = useStyles();
   const { currentUser } = useAuth();
-  const { notesArr, setNotesArr } = useContext(NotesContext);
+  const {
+    notesArr,
+    setNotesArr,
+    setFilteredNotesArr,
+    filteredNotesArr,
+    datesArr,
+    setDatesArr,
+  } = useContext(NotesContext);
 
   const handleDelete = () => {
     database.users
@@ -31,9 +38,28 @@ const DeleteNote = ({ note }) => {
       .doc(note.noteId)
       .delete()
       .then(() => {
+        setFilteredNotesArr(notesArr.filter((n) => n.noteId !== note.noteId));
         setNotesArr(notesArr.filter((n) => n.noteId !== note.noteId));
+      })
+      .then(() => {
         console.log('successfully deleted it');
-        console.log(notesArr);
+        console.log(notesArr, filteredNotesArr);
+        database.users
+          .doc(currentUser.uid)
+          .collection('notes')
+          .doc(note.date)
+          .collection(`${note.date}notes`)
+          .get()
+          .then((querySnapshot) => {
+            if (querySnapshot.size === 0) {
+              database.users
+                .doc(currentUser.uid)
+                .collection('notes')
+                .doc(note.date)
+                .delete();
+              setDatesArr(datesArr.filter((date) => date !== note.date));
+            }
+          });
       });
   };
   return (
