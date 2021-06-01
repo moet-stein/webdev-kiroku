@@ -162,7 +162,7 @@ const NewNote = () => {
           }
         });
 
-      //   history.push('/search');
+      history.push('/notes');
     }
   };
 

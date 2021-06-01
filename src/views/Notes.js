@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
+import FilterNotes from '../components/FilterNotes';
 import Loading from '../img/loading.gif';
 import AppBarComponent from '../components/AppBarComponent';
 import ProfileMenu from '../components/ProfileMenu';
@@ -92,11 +93,14 @@ const Notes = () => {
           <img src={Loading} />
         </Box>
       )}
-      {!loading &&
-        datesArr.length > 0 &&
-        datesArr.map((d) => {
-          return <NoteDate key={d} date={d} />;
-        })}
+      {!loading && datesArr.length > 0 && (
+        <div>
+          <FilterNotes />
+          {datesArr.map((d) => (
+            <NoteDate key={d} date={d} />
+          ))}
+        </div>
+      )}
       {!loading && datesArr.length === 0 && (
         <Box>
           <Box mt={7}>

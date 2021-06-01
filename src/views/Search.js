@@ -44,10 +44,9 @@ const Search = () => {
   console.log(fetchedVideos);
   const queries = [
     'javascript',
-    'react app',
+    'react js',
     'mern stack',
     'web developer',
-    'codingchallenge',
     'node js',
     'mongo db',
     'html css',

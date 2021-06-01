@@ -4,6 +4,7 @@ import React, { createContext, useState } from 'react';
 const initnotesContext = {
   notesArr: [],
   uniDatesArr: [],
+  filteredNotesArr: [],
 };
 // 3. create context
 export const NotesContext = createContext(initnotesContext);
@@ -12,6 +13,9 @@ export const NotesContext = createContext(initnotesContext);
 export const NotesContextProvider = ({ children }) => {
   const [notesArr, setNotesArr] = useState(initnotesContext.notesArr);
   const [uniDatesArr, setUniDatesArr] = useState(initnotesContext.uniDatesArr);
+  const [filteredNotesArr, setFilteredNotesArr] = useState(
+    initnotesContext.filteredNotesArr
+  );
 
   return (
     <NotesContext.Provider
@@ -20,6 +24,8 @@ export const NotesContextProvider = ({ children }) => {
         setNotesArr,
         uniDatesArr,
         setUniDatesArr,
+        filteredNotesArr,
+        setFilteredNotesArr,
       }}
     >
       {children}

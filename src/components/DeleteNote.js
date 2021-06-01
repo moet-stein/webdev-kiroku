@@ -25,7 +25,9 @@ const DeleteNote = ({ note }) => {
   const handleDelete = () => {
     database.users
       .doc(currentUser.uid)
-      .collection(note.date)
+      .collection('notes')
+      .doc(note.date)
+      .collection(`${note.date}notes`)
       .doc(note.noteId)
       .delete()
       .then(() => {

@@ -71,11 +71,11 @@ export default function NoteCard({ note }) {
 
   return (
     <div>
-      <Link
-        to={`/notedetail/${note.date}/${note.noteId}`}
-        style={{ textDecoration: 'none' }}
-      >
-        <Card className={classes.card} elevation={1}>
+      <Card className={classes.card} elevation={1}>
+        <Link
+          to={`/notedetail/${note.date}/${note.noteId}`}
+          style={{ textDecoration: 'none' }}
+        >
           <Box mt={2}>
             <Typography variant="h6" className={classes.title}>
               {note.title}
@@ -107,9 +107,9 @@ export default function NoteCard({ note }) {
                 );
               })}
           </div>
-          <DeleteNote note={note} />
-        </Card>
-      </Link>
+        </Link>
+        <DeleteNote note={note} />
+      </Card>
     </div>
   );
 }

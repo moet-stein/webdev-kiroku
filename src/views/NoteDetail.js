@@ -104,12 +104,7 @@ export default function NoteDetail(props) {
                 </div>
               )}
               <CardContent>
-                <Typography
-                  gutterBottom
-                  variant="h5"
-                  color="textSecondary"
-                  component="h2"
-                >
+                <Typography gutterBottom variant="h6" color="textSecondary">
                   {noteForDetail.date}
                 </Typography>
                 <Typography variant="body1" component="p">
@@ -125,7 +120,9 @@ export default function NoteDetail(props) {
                 href={noteForDetail.url}
               >
                 {noteForDetail.thumbnail.length === 0 && (
-                  <Typography>Link: {noteForDetail.url}</Typography>
+                  <Typography>
+                    Link: {`${noteForDetail.url.slice(0, 25)}...`}
+                  </Typography>
                 )}
               </Button>
             </CardActions>

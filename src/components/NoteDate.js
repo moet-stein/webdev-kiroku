@@ -32,7 +32,12 @@ const useStyles = makeStyles((theme) => ({
 
 const NoteDate = ({ date }) => {
   const { currentUser } = useAuth();
-  const { notesArr, setNotesArr } = useContext(NotesContext);
+  const {
+    notesArr,
+    setNotesArr,
+    filteredNotesArr,
+    setFilteredNotesArr,
+  } = useContext(NotesContext);
   const classes = useStyles();
 
   useEffect(() => {
@@ -46,6 +51,7 @@ const NoteDate = ({ date }) => {
       .then((querySnapshot) =>
         querySnapshot.forEach((doc) => {
           setNotesArr((oldArr) => [...oldArr, doc.data()]);
+          setFilteredNotesArr((oldArr) => [...oldArr, doc.data()]);
         })
       );
   }, []);
@@ -77,8 +83,8 @@ const NoteDate = ({ date }) => {
           className={moduleClasses.myMasonryGrid}
           columnClassName={moduleClasses.myMasonryGridColumn}
         >
-          {notesArr.length > 0 &&
-            notesArr.map((note) => {
+          {filteredNotesArr.length > 0 &&
+            filteredNotesArr.map((note) => {
               if (note.date === date) {
                 return (
                   <div item key={note.noteId}>

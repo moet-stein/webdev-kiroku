@@ -132,6 +132,7 @@ const NewNoteWithoutVideo = () => {
             url: url,
             thumbnail: '',
           });
+        history.push('/notes');
       };
 
       uesrDatesNotesRef
@@ -150,28 +151,6 @@ const NewNoteWithoutVideo = () => {
             storeNotes();
           }
         });
-
-      // create date collection in datesNotes collection
-      // uesrDatesNotesRef
-      //   .collection(onlyDate)
-      //   .get()
-      //   .then((docSnapshot) => {
-      //     if (docSnapshot.exists) {
-      //       console.log('it exist');
-      //     } else {
-      //       uesrDatesNotesRef.collection(onlyDate).add({
-      //         title: title,
-      //         details: details,
-      //         categories: categoriesArr,
-      //         date: onlyDate,
-      //         userId: currentUser.uid,
-      //         createdAt: database.getCurrentTimestamp(),
-      //         url: url,
-      //         thumbnail: '',
-      //       });
-      //     }
-      //   });
-      //   history.push('/search');
     }
   };
 

@@ -66,7 +66,6 @@ const SearchBar = () => {
   const [query, setQuery] = useState('');
   const onKeyPressed = (e) => {
     if (e.key === 'Enter') {
-      localStorage.removeItem('fetchedVideos');
       setSearchInput(e.target.value);
       setFetchAgain(true);
       // const timeOutId = setTimeout(() => setSearchInput(query), 1000);
