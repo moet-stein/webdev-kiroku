@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Image from '../img/home_pic.png';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import { makeStyles } from '@material-ui/core/styles';
-import { black, white } from 'colors';
+import { black, white } from '@material-ui/core/colors';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
