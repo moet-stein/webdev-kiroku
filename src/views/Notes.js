@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import CreateIcon from '@material-ui/icons/Create';
 import { useAuth } from '../context/AuthContext';
-import { firestore, database, users, datesNotes } from '../firebase';
+import { database } from '../firebase';
 import { NotesContext } from '../context/notesContext';
 
 const useStyles = makeStyles(() => ({

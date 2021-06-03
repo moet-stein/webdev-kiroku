@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   avatar: {
-    marginTop: theme.spacing(10),
+    marginTop: theme.spacing(3),
     backgroundColor: '#008B8B',
   },
   form: {
@@ -46,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
   },
   textColor: {
     color: '#008B8B',
-    marginBottom: '10px',
   },
   flex: {
     display: 'flex',
@@ -204,7 +203,7 @@ export default function Signup() {
             <Avatar className={classes.avatar}>
               <EmojiPeopleIcon />
             </Avatar>
-            <Box mt={10} ml={1}>
+            <Box mt={2} ml={1}>
               <Typography className={classes.textColor} variant="h6">
                 See as a visitor
               </Typography>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Loading from '../img/loading.gif';
 import NotFound from '../img/notfound.png';
 import Box from '@material-ui/core/Box';
@@ -35,9 +35,7 @@ const Search = () => {
     fetchedVideos,
     setFetchedVideos,
     searchInput,
-    setSearchInput,
     fetchAgain,
-    setFetchAgain,
     loading,
     setLoading,
   } = useContext(FetchedVideosContext);

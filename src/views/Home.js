@@ -5,8 +5,7 @@ import Button from '@material-ui/core/Button';
 import Image from '../img/home_pic.png';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import { makeStyles } from '@material-ui/core/styles';
-// import {  white } from '@material-ui/core/colors';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -38,7 +37,7 @@ const Home = () => {
   const classes = useStyles();
   return (
     <Box className={classes.background}>
-      <Typography variant="h1">KIROKU</Typography>
+      <Typography variant="h2">KIROKU</Typography>
       <Typography variant="h4">Youtube ✖️ Note APP</Typography>
       <Box className={classes.buttons}>
         <Box m={2}>

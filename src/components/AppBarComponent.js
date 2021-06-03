@@ -1,28 +1,14 @@
 import React, { useState } from 'react';
-import ProfileMenu from './ProfileMenu';
 import { makeStyles } from '@material-ui/core/styles';
-import { useAuth } from '../context/AuthContext';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import SearchIcon from '@material-ui/icons/Search';
 import CreateIcon from '@material-ui/icons/Create';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-import Button from '@material-ui/core/Button';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useLocation,
-  useHistory,
-} from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const useStyles = makeStyles({
-  //   root: {
-  //     width: 400,
-  //   },
   root: {
     width: 410,
     position: 'fixed',

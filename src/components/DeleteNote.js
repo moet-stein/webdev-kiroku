@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { makeStyles } from '@material-ui/core';
 import { useAuth } from '../context/AuthContext';
-import { auth, database, users, favChannels } from '../firebase';
+import { database } from '../firebase';
 import { NotesContext } from '../context/notesContext';
 
 const useStyles = makeStyles(() => ({
