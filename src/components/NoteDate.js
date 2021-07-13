@@ -90,11 +90,13 @@ const NoteDate = ({ date }) => {
       <Grid container>
         {filteredNotesArr.length > 0 &&
           filteredNotesArr.map((note) => {
-            return (
-              <Grid item xs={6} sm={3} md={2}>
-                <NoteCard key={note.noteId} note={note} />{' '}
-              </Grid>
-            );
+            if (note.date === date) {
+              return (
+                <Grid item xs={6} sm={3} md={2}>
+                  <NoteCard key={note.noteId} note={note} />{' '}
+                </Grid>
+              );
+            }
           })}
       </Grid>
 
