@@ -11,6 +11,7 @@ kiroku.netlify.app/
 
 <p align="center">
  React + Firebase (Authentication & Firestore)<br/>
+ Project period: 4 weeks <br/>
  API: <a href="https://developers.google.com/youtube/v3">Youtube Data API</a>
 </p>
 
