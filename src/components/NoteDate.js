@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Box from '@material-ui/core/List';
+import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import NoteCard from '../components/NoteCard';
 import Masonry from 'react-masonry-css';
@@ -15,16 +17,16 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    maxWidth: 420,
+    // width: '100vw',
+    // maxWidth: 380,
     backgroundColor: theme.palette.background.paper,
   },
   grey: {
     color: blueGrey[700],
   },
   marginSide: {
-    width: '100%',
-    maxWidth: '330px',
+    width: '100vw',
+    // maxWidth: '330px',
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
   },
@@ -52,14 +54,16 @@ const NoteDate = ({ date }) => {
         querySnapshot.forEach((doc) => {
           setNotesArr((oldArr) => [...oldArr, doc.data()]);
           setFilteredNotesArr((oldArr) => [...oldArr, doc.data()]);
+          // const notesForDate = doc.data().filter((d) => d.date === date);
+          console.log(doc.data());
         })
       );
   }, []);
 
   const breakpoints = {
     default: 3,
-    1100: 2,
-    // 700: 1,
+    1100: 5,
+    700: 4,
   };
 
   return (
@@ -77,24 +81,25 @@ const NoteDate = ({ date }) => {
         </ListItem>
         <Divider component="li" variant="inset" />
       </List>
-      <div className={classes.marginSide}>
-        <Masonry
-          breakpointCols={+breakpoints}
-          className={moduleClasses.myMasonryGrid}
-          columnClassName={moduleClasses.myMasonryGridColumn}
-        >
-          {filteredNotesArr.length > 0 &&
-            filteredNotesArr.map((note) => {
-              if (note.date === date) {
-                return (
-                  <div item key={note.noteId}>
-                    <NoteCard key={note.noteId} note={note} />
-                  </div>
-                );
-              }
-            })}
-        </Masonry>
-      </div>
+      {/* <div className={classes.marginSide}> */}
+      {/* <Masonry
+        breakpointCols={+breakpoints}
+        className={moduleClasses.myMasonryGrid}
+        columnClassName={moduleClasses.myMasonryGridColumn}
+      > */}
+      <Grid container>
+        {filteredNotesArr.length > 0 &&
+          filteredNotesArr.map((note) => {
+            return (
+              <Grid item xs={6} sm={3} md={2}>
+                <NoteCard key={note.noteId} note={note} />{' '}
+              </Grid>
+            );
+          })}
+      </Grid>
+
+      {/* </Masonry> */}
+      {/* </div> */}
     </div>
   );
 };

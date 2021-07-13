@@ -1,14 +1,20 @@
 import React, { useContext, useState } from 'react';
+import ProfileMenu from './ProfileMenu';
 import { fade, makeStyles } from '@material-ui/core/styles';
+import { useAuth } from '../context/AuthContext';
 import AppBar from '@material-ui/core/AppBar';
+import Box from '@material-ui/core/Box';
+import teal from '@material-ui/core/colors/teal';
 import Toolbar from '@material-ui/core/Toolbar';
 import InputBase from '@material-ui/core/InputBase';
+import Typography from '@material-ui/core/Typography';
 import SearchIcon from '@material-ui/icons/Search';
 import { FetchedVideosContext } from '../context/fetchedVideosContext';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
+    width: '100vw',
   },
 
   title: {
@@ -54,10 +60,18 @@ const useStyles = makeStyles((theme) => ({
       width: '20ch',
     },
   },
+  title: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
+  toolColor: { backgroundColor: teal[800] },
 }));
 
 const SearchBar = () => {
   const classes = useStyles();
+  const { currentUser } = useAuth();
 
   const { searchInput, setSearchInput, setFetchAgain } = useContext(
     FetchedVideosContext
@@ -73,25 +87,35 @@ const SearchBar = () => {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
-        <Toolbar>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+      <AppBar position="static" className={classes.toolColor}>
+        <Box display="flex" justifyContent="center">
+          <Toolbar>
+            {/* <Typography className={classes.title} variant="h3" noWrap>
+              KIROKU
+            </Typography> */}
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                onChange={(event) => setQuery(event.target.value)}
+                onKeyDown={onKeyPressed}
+                tabIndex="0"
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+              />
             </div>
-            <InputBase
-              onChange={(event) => setQuery(event.target.value)}
-              onKeyDown={onKeyPressed}
-              tabIndex="0"
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
-        </Toolbar>
+            {currentUser && (
+              <Box mr={2}>
+                <ProfileMenu />
+              </Box>
+            )}
+          </Toolbar>
+        </Box>
       </AppBar>
     </div>
   );

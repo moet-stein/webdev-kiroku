@@ -28,9 +28,8 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
   },
   root: {
-    width: '350px',
-    maxWidth: '350px',
-    margin: theme.spacing(2),
+    width: '300px',
+    margin: theme.spacing(1),
     position: 'relative',
   },
   media: {
@@ -71,8 +70,8 @@ const Video = ({ video, channelIcon }) => {
 
   const classes = useStyles();
   const channelTitle =
-    video.snippet.channelTitle.length > 20
-      ? video.snippet.channelTitle.slice(0, 20) + '...'
+    video.snippet.channelTitle.length > 10
+      ? video.snippet.channelTitle.slice(0, 10) + '...'
       : video.snippet.channelTitle;
 
   const publishTime = video.snippet.publishTime.split('T')[0];

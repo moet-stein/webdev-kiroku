@@ -2,16 +2,18 @@
   display: -webkit-box; /* Not needed if autoprefixing */
   display: -ms-flexbox; /* Not needed if autoprefixing */
   display: flex;
-  margin-left: -30px; /* gutter size offset */
+  margin-left: 5px; /* gutter size offset */
   width: auto;
 }
 .myMasonryGridColumn {
-  padding-left: 30px; /* gutter size */
+  padding-left: 5px; /* gutter size */
+  padding-right: 10px;
   background-clip: padding-box;
 }
 
 /* Style your items */
 .myMasonryGridColumn > div {
   /* change div to reference your elements you put in <Masonry> */
-  margin-bottom: 30px;
+
+  margin-bottom: 2px;
 }

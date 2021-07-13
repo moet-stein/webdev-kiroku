@@ -131,7 +131,8 @@ const NewNoteWithoutVideo = () => {
             url: url,
             thumbnail: '',
           });
-        history.push('/notes');
+        // history.push('/notes');
+        history.push('/confirmnew');
       };
 
       uesrDatesNotesRef
@@ -269,8 +270,10 @@ const NewNoteWithoutVideo = () => {
             <Button
               className={classes.marginWidth70}
               type="submit"
-              color="secondary"
               variant="contained"
+              style={{
+                backgroundColor: '#fdbd32',
+              }}
               endIcon={<ArrowForwardIcon />}
             >
               Submit

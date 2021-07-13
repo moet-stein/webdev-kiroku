@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   avatar: {
-    marginTop: theme.spacing(10),
+    marginTop: theme.spacing(2),
     backgroundColor: '#008B8B',
   },
   form: {
@@ -48,7 +48,8 @@ const useStyles = makeStyles((theme) => ({
   flex: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: theme.spacing(3),
+    justifyContent: 'center',
+    // marginTop: theme.spacing(3),
   },
   textColor: {
     color: '#008B8B',
@@ -90,6 +91,11 @@ export default function Login() {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
+          <Box mt={4}>
+            <Typography component="h4" variant="h4">
+              KIROKU
+            </Typography>
+          </Box>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
@@ -173,10 +179,12 @@ export default function Login() {
             className={classes.flex}
             style={{ textDecoration: 'none' }}
           >
-            <Avatar className={classes.avatar}>
-              <EmojiPeopleIcon />
-            </Avatar>
-            <Box mt={10} ml={1}>
+            <Box mb={3}>
+              <Avatar className={classes.avatar}>
+                <EmojiPeopleIcon />
+              </Avatar>
+            </Box>
+            <Box mt={7} ml={1}>
               <Typography className={classes.textColor} variant="h6">
                 See as a visitor
               </Typography>

@@ -12,8 +12,9 @@ export default function FilterNotes() {
       : setFilteredNotesArr(
           notesArr.filter(
             (note) =>
-              note.categories.filter((category) => category.includes(query))
-                .length > 0
+              note.categories.filter((category) =>
+                category.toLowerCase().includes(query.toLowerCase())
+              ).length > 0
           )
         );
   };

@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import Card from '@material-ui/core/Card';
 import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
+import Grid from '@material-ui/core/Grid';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
@@ -14,27 +15,13 @@ import { database, notes } from '../firebase';
 import { useAuth } from '../context/AuthContext';
 
 const useStyles = makeStyles({
-  avatar: {
-    backgroundColor: (note) => {
-      if (note.category === 'work') {
-        return yellow[700];
-      }
-      if (note.category === 'money') {
-        return green[500];
-      }
-      if (note.category === 'todos') {
-        return pink[700];
-      }
-      return blue[500];
-    },
-  },
   title: { color: lightBlue[800] },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
   card: {
-    width: '180px',
+    width: '160px',
     transition: 'all .25s linear',
     boxShadow: '0px 1px 2px 0px rgba(0,0,0,0.4)',
     '&:hover , &:active': { boxShadow: ' -1px 10px 29px 0px rgba(0,0,0,0.8)' },
@@ -44,6 +31,9 @@ const useStyles = makeStyles({
   },
   marginChip: {
     margin: '5px',
+  },
+  cardWidth: {
+    width: '160px',
   },
 });
 
@@ -70,7 +60,7 @@ export default function NoteCard({ note }) {
       : note.details;
 
   return (
-    <div>
+    <Box m={1} className={classes.cardWidth}>
       <Card className={classes.card} elevation={1}>
         <Link
           to={`/notedetail/${note.date}/${note.noteId}`}
@@ -110,6 +100,6 @@ export default function NoteCard({ note }) {
         </Link>
         <DeleteNote note={note} />
       </Card>
-    </div>
+    </Box>
   );
 }

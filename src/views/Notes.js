@@ -18,7 +18,8 @@ const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    minHeight: '100vh',
+    height: '100vh',
+    width: '100vw',
   },
   largeIcon: {
     width: 100,
@@ -105,7 +106,44 @@ const Notes = () => {
           <img src={Loading} />
         </Box>
       )}
-      {!loading && datesArr.length > 0 && (
+
+      {!loading && (
+        <React.Fragment>
+          {datesArr.length > 0 ? (
+            <Box mb={5}>
+              <FilterNotes />
+              {datesArr.map((d) => (
+                <NoteDate key={d} date={d} />
+              ))}
+            </Box>
+          ) : (
+            <Box>
+              <Box mt={7}>
+                <Typography variant="h3" className={classes.fontColor}>
+                  No notes yet
+                </Typography>
+              </Box>
+              <Box mt={6}>
+                <Typography variant="h6">
+                  Search for a video to make a note?
+                </Typography>
+                <IconButton href="/search">
+                  <SearchIcon className={classes.largeIcon} />
+                </IconButton>
+              </Box>
+              <Box mt={2}>
+                <Typography variant="h6">
+                  Or make a note without a video?
+                </Typography>
+                <IconButton href="/newnotewithoutvideo">
+                  <CreateIcon className={classes.largeIcon} />
+                </IconButton>
+              </Box>
+            </Box>
+          )}
+        </React.Fragment>
+      )}
+      {/* {!loading && datesArr.length > 0 && (
         <Box mb={5}>
           <FilterNotes />
           {datesArr.map((d) => (
@@ -137,7 +175,7 @@ const Notes = () => {
             </IconButton>
           </Box>
         </Box>
-      )}
+      )} */}
 
       <AppBarComponent />
     </div>

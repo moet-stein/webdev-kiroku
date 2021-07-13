@@ -42,15 +42,15 @@ const Home = () => {
       <Box className={classes.buttons}>
         <Box m={2}>
           <Link to={'/login'} style={{ textDecoration: 'none' }}>
-            <Button size="large" variant="contained" className={classes.button}>
-              LOGIN
+            <Button size="small" variant="contained" className={classes.button}>
+              <Typography variant="h6">LOGIN</Typography>
             </Button>
           </Link>
         </Box>
         <Box m={2}>
           <Link to={'/signup'} style={{ textDecoration: 'none' }}>
-            <Button size="large" variant="contained" className={classes.button}>
-              SIGNUP
+            <Button size="small" variant="contained" className={classes.button}>
+              <Typography variant="h6">SIGNUP</Typography>
             </Button>
           </Link>
         </Box>

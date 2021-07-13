@@ -10,6 +10,7 @@ import NewNote from './views/NewNote';
 import NewNoteWithoutVideo from './views/NewNoteWithoutVideo';
 import FavoriteChannels from './views/FavoriteChannels';
 import NoteDetail from './views/NoteDetail';
+import ConfirmNewNote from './views/ConfirmNewNote';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
@@ -88,6 +89,12 @@ function App() {
                           exact
                           path="/newnote/:id"
                           component={NewNote}
+                        />
+
+                        <PrivateRoute
+                          exact
+                          path="/confirmnew/"
+                          component={ConfirmNewNote}
                         />
                       </VideoForNewNoteContextProvider>
                       {/* </FetchedVideosContextProvider> */}

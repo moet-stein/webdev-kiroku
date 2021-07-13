@@ -163,7 +163,8 @@ const NewNote = () => {
           }
         });
 
-      history.push('/notes');
+      // history.push('/notes');
+      history.push('/confirmnew');
     }
   };
 
@@ -303,7 +304,9 @@ const NewNote = () => {
             <Button
               className={classes.marginWidth70}
               type="submit"
-              color="secondary"
+              style={{
+                backgroundColor: '#fdbd32',
+              }}
               variant="contained"
               endIcon={<ArrowForwardIcon />}
             >

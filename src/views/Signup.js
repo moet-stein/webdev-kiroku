@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   avatar: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(1),
     backgroundColor: '#008B8B',
   },
   form: {
@@ -99,12 +99,21 @@ export default function Signup() {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
+          <Box mt={4}>
+            <Typography component="h4" variant="h4">
+              KIROKU
+            </Typography>
+          </Box>
+          <Box display="flex">
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Box ml={2} mt={1}>
+              <Typography component="h1" variant="h5">
+                Sign up
+              </Typography>
+            </Box>
+          </Box>
           {error && <Alert severity="error">{error}</Alert>}
           <form className={classes.form} onSubmit={handleSubmit} noValidate>
             <Grid container spacing={2}>

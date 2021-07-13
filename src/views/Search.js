@@ -26,6 +26,9 @@ const useStyles = makeStyles(() => ({
     width: '350px',
     height: '350px',
   },
+  videoWidth: {
+    width: '350px',
+  },
 }));
 
 const Search = () => {
@@ -77,19 +80,6 @@ const Search = () => {
 
   return (
     <React.Fragment>
-      {currentUser ? (
-        <Box display="flex" p={1}>
-          <Box flexGrow={1} mt={3}>
-            <Typography variant="h5">Kiroku</Typography>
-          </Box>
-          <Box p={1}>
-            <ProfileMenu />
-          </Box>
-        </Box>
-      ) : (
-        <Typography variant="h5">Kiroku</Typography>
-      )}
-
       <SearchBar />
       {loading && (
         <Box mt={15}>
@@ -98,16 +88,24 @@ const Search = () => {
       )}
 
       {!loading ? (
-        fetchedVideos.map((video) => {
-          return (
-            <Box mb={5}>
-              <Video key={video.etag} video={video} />
-            </Box>
-          );
-        })
+        <Box
+          display="flex"
+          flexWrap="wrap"
+          justifyContent="center"
+          alignItems="center"
+        >
+          {fetchedVideos.map((video) => {
+            return (
+              <Box mb={5} className={classes.videoWidth}>
+                <Video key={video.etag} video={video} />
+              </Box>
+            );
+          })}
+        </Box>
       ) : (
-        <Typography>Loading</Typography>
+        <Typography color="primary">Loading</Typography>
       )}
+
       {!loading && fetchedVideos.length === 0 && (
         <Box className={classes.boxWidth}>
           <Box mt={7} ml={5}>

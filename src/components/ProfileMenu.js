@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import teal from '@material-ui/core/colors/teal';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -7,14 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core';
 import { useAuth } from '../context/AuthContext';
 import { database } from '../firebase';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useLocation,
-  useHistory,
-} from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   marginPositionRight: {
@@ -27,6 +21,12 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(3),
     height: theme.spacing(3),
   },
+  white: {
+    color: '#fff',
+  },
+  teal: {
+    color: teal[600],
+  },
 }));
 
 const ProfileMenu = () => {
@@ -36,6 +36,7 @@ const ProfileMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [error, setError] = useState('');
   const history = useHistory();
+  const location = useLocation();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -73,7 +74,14 @@ const ProfileMenu = () => {
         onClick={handleClick}
       >
         <Avatar className={classes.avatar}>{userName[0]}</Avatar>
-        <Typography> Hi, {userName}</Typography>
+        {location.pathname === '/search' ? (
+          <Typography variant="body2" className={classes.white}>
+            {' '}
+            Hi, {userName}
+          </Typography>
+        ) : (
+          <Typography className={classes.teal}> Hi, {userName}</Typography>
+        )}
       </Button>
       <Menu
         id="simple-menu"
@@ -82,13 +90,13 @@ const ProfileMenu = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <Link
+        {/* <Link
           to="/update-profile"
           style={{ textDecoration: 'none' }}
           color="#000"
         >
           <MenuItem>Update Account</MenuItem>
-        </Link>
+        </Link> */}
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>
