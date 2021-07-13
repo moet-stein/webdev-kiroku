@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# KIROKU - Note App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Find youtube tutorial videos and make a note with them!
 
-## Available Scripts
+### Available as mobile app & on desktop size
 
-In the project directory, you can run:
+  <a href="https://kiroku.netlify.app/">
+kiroku.netlify.app/
+  </a>
+<br/>
 
-### `yarn start`
+<p align="center">
+ React + Firebase (Authentication & Firestore)<br/>
+ API: <a href="https://developers.google.com/youtube/v3">Youtube Data API</a>
+</p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Summary
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Are you watching youtube videos for learning programming?
+And you want to bookmark them with small notes?
+This youtube + note app helps you learn more effectively!
 
-### `yarn test`
+Save videos with notes, like your favorite Youtube channels!
+Save useful links for your web development learning journey.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+If you login, you can like and create notes!
 
-### `yarn build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<!-- PROJECT LOGO -->
+<br/>
+<p align="center">
+    <img src="./RMimgs/home.png" alt="Home" width="200" height="350" >
+    <img src="./RMimgs/signup.png" alt="Signup" width="200" height="350" >
+    <img src="./RMimgs/login.png" alt="Login" width="200" height="350" >
+</p>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Search Tutorial Videos / Like your Favorite Channels
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| Search programming tutorial youtube videos                            |                 Like /unlike your favorite channels                 |
+| --------------------------------------------------------------------- | :-----------------------------------------------------------------: |
+| <img src="./RMimgs/search.gif" alt="Search" width="200" height="350"> | <img src="./RMimgs/likes.gif" alt="Likes" width="200" height="350"> |
 
-### `yarn eject`
+### Make Notes with Youtube Link or without
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+| Make Notes for the tutorial video you liked                           |   You can also create bookmark note <br/> without video but with a link   |
+| --------------------------------------------------------------------- | :-----------------------------------------------------------------------: |
+| <img src="./RMimgs/create.gif" alt="Create" width="200" height="350"> | <img src="./RMimgs/notelink.gif" alt="Notelink" width="200" height="350"> |
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
